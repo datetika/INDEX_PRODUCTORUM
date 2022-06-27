@@ -44,6 +44,8 @@
 ## Extenciones de Grandle
 > Instrucciones de configuración:
 
+### Navigation drawer (menu barra lateral)[:link:](https://material.io/components/navigation-drawer)
+
 ### Vinculación de vista [:link:](https://developer.android.com/topic/libraries/view-binding?hl=es-419)
 1. Vinculación de vista en build.gradle(:app)
 
@@ -121,6 +123,9 @@
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
  
+## UI 
+![imagen](https://user-images.githubusercontent.com/33204630/175988029-d7367899-4be3-4967-aa5e-1676cf02d40b.png)
+
 
 ### Extras
 ([Drive link ](https://docs.google.com/document/d/1r5ElcFDWT98yS-NT08viIMSQooUFfycH5JtQUsLnOFA/edit))
