@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:tooltipText="Agregar Producto"
+    android:background="@color/purple_500"
+    tools:context=".ui.fragment.articulo.AgregarArticuloFragment">
+
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:background="@color/white"
+       android:layout_marginLeft="1dp"
+       android:layout_marginTop="1dp"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+      <ImageView
+          android:id="@+id/imageView2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="167dp"
+          android:layout_marginTop="18dp"
+          android:layout_marginEnd="116dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/editTextDescripcion"
+          tools:src="@tools:sample/avatars" />
+
+
+      <Button
+          android:id="@+id/btnAgregar"
+          android:layout_width="155dp"
+          android:layout_height="60dp"
+          android:layout_marginStart="141dp"
+          android:layout_marginTop="37dp"
+          android:layout_marginEnd="115dp"
+          android:layout_marginBottom="167dp"
+          android:backgroundTint="@color/LightSkyBlue"
+          android:text="Agregar"
+          android:textSize="22dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/edittextPrecio" />
+
+      <EditText
+          android:id="@+id/editTextTextPersonName"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="142dp"
+          android:layout_marginTop="34dp"
+          android:layout_marginEnd="59dp"
+          android:ems="10"
+          android:hint="Nombre"
+          android:inputType="textPersonName"
+          android:text=""
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <Spinner
+          android:id="@+id/spinnerCategoria"
+          android:layout_width="208dp"
+          android:layout_height="34dp"
+          android:layout_marginStart="141dp"
+          android:layout_marginTop="15dp"
+          android:layout_marginEnd="62dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+      <EditText
+          android:id="@+id/editTextDescripcion"
+          android:layout_width="208dp"
+          android:layout_height="98dp"
+          android:layout_marginStart="141dp"
+          android:layout_marginTop="14dp"
+          android:layout_marginEnd="62dp"
+          android:ems="10"
+          android:hint="Descripcion"
+          android:inputType="textPersonName"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/spinnerCategoria" />
+
+      <EditText
+          android:id="@+id/edittextPrecio"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="122dp"
+          android:layout_marginTop="11dp"
+          android:layout_marginEnd="79dp"
+          android:ems="10"
+          android:hint="precio"
+          android:inputType="number"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

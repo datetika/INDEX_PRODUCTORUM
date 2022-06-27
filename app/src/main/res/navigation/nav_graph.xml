@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/agregarArticuloFragment">
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.dev.mrvazguen.indexproductorum.ui.fragment.home.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/descuentoProductoFragment"
+        android:name="com.dev.mrvazguen.indexproductorum.ui.fragment.descuentos.DescuentoProductoFragment"
+        android:label="Descuento_Articulos"
+        tools:layout="@layout/fragment_descuento_articulo" >
+        <action
+            android:id="@+id/action_descuentoProductoFragment_to_crearDescuentoFragment"
+            app:destination="@id/crearDescuentoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/crearDescuentoFragment"
+        android:name="com.dev.mrvazguen.indexproductorum.ui.fragment.descuentos.CrearDescuentoFragment"
+        android:label="fragment_crear_descuento"
+        tools:layout="@layout/fragment_crear_descuento" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.dev.mrvazguen.indexproductorum.ui.fragment.autentification.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_listaArticuloFragment"
+            app:destination="@id/listaArticuloFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registrarFragment"
+            app:destination="@id/registrarFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrarFragment"
+        android:name="com.dev.mrvazguen.indexproductorum.ui.fragment.autentification.RegistrarFragment"
+        android:label="fragment_registrar"
+        tools:layout="@layout/fragment_registrar" >
+        <action
+            android:id="@+id/action_registrarFragment_to_listaArticuloFragment"
+            app:destination="@id/listaArticuloFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/agregarArticuloFragment"
+        android:name="com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.AgregarArticuloFragment"
+        android:label="fragment_agregar_articulo"
+        tools:layout="@layout/fragment_agregar_articulo" />
+    <fragment
+        android:id="@+id/consultarPreciosFragment"
+        android:name="com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.ConsultarPreciosFragment"
+        android:label="fragment_consultar_precios"
+        tools:layout="@layout/fragment_consultar_precios" />
+    <fragment
+        android:id="@+id/crearCategoriasFragment"
+        android:name="com.dev.mrvazguen.indexproductorum.ui.fragment.categoria.CrearCategoriasFragment"
+        android:label="fragment_crear_categorias"
+        tools:layout="@layout/fragment_crear_categorias" />
+    <fragment
+        android:id="@+id/listaArticuloFragment"
+        android:name="com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.ListaArticuloFragment"
+        android:label="fragment_lista_articulos"
+        tools:layout="@layout/fragment_lista_articulos" >
+        <action
+            android:id="@+id/action_listaArticuloFragment_to_crearCategoriasFragment"
+            app:destination="@id/crearCategoriasFragment" />
+        <action
+            android:id="@+id/action_listaArticuloFragment_to_consultarPreciosFragment"
+            app:destination="@id/consultarPreciosFragment" />
+        <action
+            android:id="@+id/action_listaArticuloFragment_to_descuentoProductoFragment"
+            app:destination="@id/descuentoProductoFragment" />
+        <action
+            android:id="@+id/action_listaArticuloFragment_to_agregarArticuloFragment"
+            app:destination="@id/agregarArticuloFragment" />
+    </fragment>
+
+</navigation>
