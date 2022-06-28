@@ -24,16 +24,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context=".activities.MainActivity"
-                android:id="@+id/preferenciasFragment"/>
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="androidx.navigation.fragment.NavHostFragment"
-                android:id="@+id/frgNavHostFragment"
-                app:navGraph="@navigation/nav_graph"
-                app:menu="@menu/main_menu"
-                app:defaultNavHost="true"
-                />
+                android:id="@+id/preferenciasFragment">
+
+                <fragment
+                    android:id="@+id/frgNavHostFragment"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:defaultNavHost="true"
+                    app:menu="@menu/main_menu"
+                    app:navGraph="@navigation/nav_graph" />
+
+                <SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="209dp"
+                    android:layout_height="29dp"
+                    android:background="@drawable/ic_launcher_background" />
+            </FrameLayout>
+
         </FrameLayout>
 
         <!-- layout lateral de navigation-->
@@ -48,28 +56,32 @@
             />
     </androidx.drawerlayout.widget.DrawerLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/background"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:orientation="horizontal">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="380dp"
-            android:layout_height="451dp"
-            android:layout_marginBottom="112dp"
+            android:id="@+id/recyclerView2"
+            android:layout_width="match_parent"
+            android:layout_height="540dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="190dp"
             android:background="@color/cardview_light_background"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.483"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="168dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="536dp"
+            android:layout_marginLeft="-70dp"
+            android:layout_marginTop="610dp"
             android:clickable="true"
             android:src="@android:drawable/ic_input_add"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.892"
             app:layout_constraintStart_toStartOf="parent"
@@ -77,28 +89,22 @@
 
         <TextView
             android:id="@+id/textView"
+            android:layout_marginLeft="-310dp"
+            android:background="@color/colorPrimaryDark"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textSize="35dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Lista productos"
+            android:text="Lista articulos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <SearchView
-            android:id="@+id/searchView"
-            android:layout_width="209dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="84dp"
-            android:background="@drawable/ic_launcher_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.876"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 
 </FrameLayout>

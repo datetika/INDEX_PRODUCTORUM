@@ -1,24 +1,17 @@
 package com.dev.mrvazguen.indexproductorum.ui.fragment.home;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
-import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.FragmentNavigatorDestinationBuilder;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.dev.mrvazguen.indexproductorum.R;
+import com.dev.mrvazguen.indexproductorum.data.repository.FirebaseConection;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentMainBinding;
 
 /**
@@ -28,7 +21,6 @@ import com.dev.mrvazguen.indexproductorum.databinding.FragmentMainBinding;
  */
 public class MainFragment extends Fragment {
     private FragmentMainBinding binding;
-
     public MainFragment() {
         // Required empty public constructor
     }
@@ -52,6 +44,7 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Log.e("Activity","Main Fragment");
       //binding =   FragmentMainBinding.inflate(this.getLayoutInflater());
+
 
 
 

@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
 
 
         <EditText
@@ -64,33 +65,29 @@
 
         <Button
             android:id="@+id/btnRegistrarse"
-            android:layout_width="243dp"
-            android:layout_height="69dp"
-            android:layout_marginStart="149dp"
-            android:layout_marginEnd="125dp"
-            android:layout_marginBottom="32dp"
-            android:backgroundTint="@color/black"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="176dp"
+            android:backgroundTint="@color/BlueA200"
             android:text="Registrarse"
             android:textColor="@color/white"
             android:textSize="23sp"
+            app:icon="@drawable/ic_baseline_add_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.613"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewFoto" />
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/imageViewFoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="149dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="134dp"
-            android:layout_marginBottom="61dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnRegistrarse"
+            android:layout_marginBottom="252dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
             tools:src="@tools:sample/avatars" />
 
         <TextView
@@ -102,9 +99,9 @@
             android:layout_marginEnd="170dp"
             android:layout_marginBottom="76dp"
             android:background="@color/dark_blue"
+            android:minWidth="240dp"
             android:padding="10dp"
             android:text="Registrar usuario"
-            android:minWidth="240dp"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="27dp"

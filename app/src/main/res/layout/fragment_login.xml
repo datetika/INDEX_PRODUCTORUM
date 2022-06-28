@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.autentification.LoginFragment">
+    android:background="@drawable/background"
+    tools:context=".ui.fragment.autentification.LoginFragment"
+
+    ><!-- tools:viewBindingIgnore="true"  binding  -->
 
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
@@ -51,7 +52,7 @@
 
         <!--button to register our new user-->
         <Button
-            android:id="@+id/idBtnLogin"
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/idEdtPassword"
@@ -60,6 +61,18 @@
             android:layout_marginEnd="10dp"
             android:text="Login"
             android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnRegistrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idEdtPassword"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="83dp"
+            android:layout_marginEnd="10dp"
+            android:text="Registrarse"
+            android:textAllCaps="false" />
+
 
     </RelativeLayout>
 
