@@ -63,12 +63,20 @@ FragmentLoginBinding binding;
         binding = FragmentLoginBinding.bind(v);
         // Inflate the layout for this fragment3
 
+
+
         v.findViewById(R.id.btnLogin).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e( "btnLogin","btn Login clicked");
-                loginUser(v);
 
+
+                String userMail= binding.idEdtUserName.getText().toString();
+                String password = binding.idEdtPassword.getText().toString();
+
+                //loginUser(v);
+                Navigation.findNavController(v).navigate(
+                        R.id.action_loginFragment_to_listaArticuloFragment);
             }
 
         });
@@ -95,6 +103,7 @@ FragmentLoginBinding binding;
 
         String userMail= binding.idEdtUserName.getText().toString();
         String password = binding.idEdtPassword.getText().toString();
+
         boolean  login=false;
         if(validarFieldLogin(userMail,password) ) {
             FirebaseConection.getmAuth().signInWithEmailAndPassword(userMail, password)
@@ -119,10 +128,10 @@ FragmentLoginBinding binding;
                         }
                     });
             }
-        else
-            Log.e("Autentificarse","failes login !!!");
-        Toast.makeText(this.getContext().getApplicationContext(), "No hemos posido autentificarse", Toast.LENGTH_SHORT).show();
-
+        else {
+            Log.e("Autentificarse", "failes login !!!");
+            Toast.makeText(this.getContext().getApplicationContext(), "No hemos posido autentificarse", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

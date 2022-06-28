@@ -63,7 +63,7 @@
         android:orientation="horizontal">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView2"
+            android:id="@+id/recyclerViewItemArticulos"
             android:layout_width="match_parent"
             android:layout_height="540dp"
             android:layout_marginStart="0dp"
