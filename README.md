@@ -147,7 +147,7 @@ dependencies {
 ```
 
 > FirebaseUI for Cloud Firestore [:link:](https://firebaseopensource.com/projects/firebase/firebaseui-android/firestore/readme/)
-> Notificar  cambios de firestore 
+#### Notificar  cambios de firestore 
 ```
   FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference tripsRef = db.collection("trips");
