@@ -146,7 +146,7 @@ dependencies {
 
 ```
 
-### FirebaseUI for Cloud Firestore [:link:](https://firebaseopensource.com/projects/firebase/firebaseui-android/firestore/readme/)
+### FirebaseUI for Cloud Firestore [:link:](https://firebaseopensource.com/projects/firebase/firebaseui-android/firestore/readme/) && github  [:link:](https://github.com/firebase/firebaseui-android/)
 > Notificar  cambios de firestore 
 ```
   FirebaseFirestore db = FirebaseFirestore.getInstance();
