@@ -11,14 +11,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
 
+import java.util.ArrayList;
+
 public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdapter.LlistarArticuloViewHolder> {
     private Articulo articulo;
+    private ArrayList<Articulo>articulos;
     private  int nItems=0;
+
+    /*
     public ListaArticuloAdapter(String  dato) {
         articulo = new Articulo(dato);
         nItems++;
     }
-
+*/
+   public  ListaArticuloAdapter(ArrayList<Articulo> articulos){
+        this.articulos =articulos;
+        nItems = articulos.size();
+   }
 
     @NonNull
     @Override
@@ -29,9 +38,8 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
 
     @Override
     public void onBindViewHolder(@NonNull LlistarArticuloViewHolder holder, int position) {
-
-        holder.getView().setText( articulo.getNombre());
-
+        //holder.getView().setText( articulo.getNombre());
+        holder.getView().setText(articulos.get(position).getNombre());
     }
 
     @Override

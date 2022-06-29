@@ -8,6 +8,7 @@ public class FirebaseConection    {
     private  static  FirebaseAuth mAuth;
     private  static  FirebaseUser firebaseUser;
     private  final String nombreProyecto="";
+
     public static void crearConection(){
         if(mAuth==null){
             mAuth = FirebaseAuth.getInstance();
@@ -29,7 +30,6 @@ public class FirebaseConection    {
         firebaseUser = firebaseUser;
     }
     public  static  FirebaseAuth getmAuth(){
-
         crearConection();
         return  mAuth;
     }

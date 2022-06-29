@@ -26,11 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.concurrent.Executor;
 import java.util.regex.Pattern;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class LoginFragment extends Fragment {
 FragmentLoginBinding binding;
     public LoginFragment() {
