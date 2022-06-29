@@ -56,4 +56,11 @@ public class ListaArticuloFragment extends Fragment {
 
         return view;
     }
+
+
+    ///region
+    public void ListeningTripList(){
+
+    }
+    ///enregion
 }
