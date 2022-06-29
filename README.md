@@ -122,6 +122,29 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
+
+
+
+### Firestore extencions [:link:](https://firebase.google.com/docs/android/setup?hl=es-419)
+```
+dependencies {
+  // ...
+
+  // Import the Firebase BoM
+  implementation platform('com.google.firebase:firebase-bom:30.1.0')
+
+  // When using the BoM, you don't specify versions in Firebase library dependencies
+
+  // Declare the dependency for the Firebase SDK for Google Analytics
+  implementation 'com.google.firebase:firebase-analytics'
+
+  // Declare the dependencies for any other desired Firebase products
+  // For example, declare the dependencies for Firebase Authentication and Cloud Firestore
+  implementation 'com.google.firebase:firebase-auth'
+  implementation 'com.google.firebase:firebase-firestore'
+}
+
+```
  
 ## UI 
 ![imagen](https://user-images.githubusercontent.com/33204630/175988029-d7367899-4be3-4967-aa5e-1676cf02d40b.png)
