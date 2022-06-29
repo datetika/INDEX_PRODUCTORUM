@@ -147,7 +147,58 @@ dependencies {
 ```
 
 > FirebaseUI for Cloud Firestore [:link:](https://firebaseopensource.com/projects/firebase/firebaseui-android/firestore/readme/)
- 
+> Notificar  cambios de firestore 
+```
+  FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference tripsRef = db.collection("trips");
+        tripsRef.whereArrayContains("users", currentUser.getEmail()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error!=null){
+                    Toast.makeText(TripListActivity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                for(DocumentChange doc:value.getDocumentChanges()){
+                    if (doc.getType()==DocumentChange.Type.ADDED){
+                        Map<String,Object> trip = doc.getDocument().getData();
+                        String date = (String) trip.get("date");
+                        String description = (String) trip.get("description");
+                        String image_url = (String) trip.get("img_url");
+                        ArrayList users = (ArrayList) trip.get("users");
+                        TripInfo newTrip = new TripInfo(image_url, date, description,doc.getDocument().getId(), users);
+                        trips.add(newTrip);
+                    }else if (doc.getType()==DocumentChange.Type.MODIFIED){
+                        Map<String,Object> trip = doc.getDocument().getData();
+                        String date = (String) trip.get("date");
+                        String description = (String) trip.get("description");
+                        String image_url = (String) trip.get("img_url");
+                        ArrayList users = (ArrayList) trip.get("users");
+                        TripInfo newTrip = new TripInfo(image_url, date, description,doc.getDocument().getId(), users);
+                        int currentPosition = 0;
+                        for(int i=0;i<trips.size();i++){
+                            if (doc.getDocument().getId().equals(trips.get(i).tripID)){
+                                currentPosition=i;
+                                break;
+                            }
+                        }
+                        trips.set(currentPosition,newTrip);
+
+                    }else if (doc.getType()==DocumentChange.Type.REMOVED){
+                        String id=doc.getDocument().getId();
+                        int currentPosition=-1;
+                        for(int i=0;i<trips.size();i++){
+                            if (id.equals(trips.get(i).tripID)){
+                                currentPosition=i;
+                                break;
+                            }
+                        }
+                        trips.remove(currentPosition);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
+```
 ## UI 
 ![imagen](https://user-images.githubusercontent.com/33204630/175988029-d7367899-4be3-4967-aa5e-1676cf02d40b.png)
 
