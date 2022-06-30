@@ -12,6 +12,9 @@ public class Articulo {
     ///endregion
 
     ///region Constructor
+    public  Articulo(String nombre){
+        this.nombre = nombre;
+    }
     public Articulo(String nombre, String descripcion, ArrayList<String> categoria, double precio) {
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -48,9 +51,8 @@ public class Articulo {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-    public  Articulo(String nombre){
-        this.nombre = nombre;
-    }
+
+
 
     public String getNombre() {
         return nombre;

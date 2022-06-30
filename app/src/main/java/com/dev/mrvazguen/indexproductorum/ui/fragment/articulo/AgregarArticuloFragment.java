@@ -13,13 +13,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.dev.mrvazguen.indexproductorum.R;
+import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
+import com.dev.mrvazguen.indexproductorum.data.repository.FirebaseConection;
+import com.dev.mrvazguen.indexproductorum.data.repository.FirestorePersistence;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentAgregarArticuloBinding;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentLoginBinding;
+
+import java.util.ArrayList;
 
 public class AgregarArticuloFragment extends Fragment {
     Spinner spinner;
     ArrayAdapter<CharSequence> adapterCategoria;
     FragmentAgregarArticuloBinding binding;
+    FirestorePersistence firestorePersistence;
 
     public AgregarArticuloFragment() {
         // Required empty public constructor
@@ -29,6 +35,7 @@ public class AgregarArticuloFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        firestorePersistence = new FirestorePersistence();
         ///region adapter of Spinner categoria
         adapterCategoria = ArrayAdapter.createFromResource(this.getActivity().getApplicationContext(),
                 R.array.categoria_array, android.R.layout.simple_spinner_item);
@@ -64,6 +71,16 @@ public class AgregarArticuloFragment extends Fragment {
         });
         ///endregion
 
+        ///region Buto agregar
+        binding.btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Articulo articulo = new Articulo("","",new ArrayList<>(),3);
+                firestorePersistence.agregar("",articulo);
+                firestorePersistence.close();
+            }
+        });
+        ///endregion
         return  binding.getRoot();
     }
 }

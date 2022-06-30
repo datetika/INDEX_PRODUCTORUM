@@ -5,9 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="1dp"
-    android:layout_marginTop="1dp"
-    android:src="@drawable/background">
+    android:background="@color/LightGrey"
+     >
 
 
    <EditText
@@ -19,6 +18,9 @@
        android:layout_marginEnd="70dp"
        android:ems="10"
        android:hint="Nombre"
+
+       android:padding="5dp"
+       android:background="@color/Wheat"
        android:inputType="textPersonName"
        android:text=""
        app:layout_constraintEnd_toEndOf="parent"
@@ -33,8 +35,10 @@
        android:layout_marginEnd="65dp"
        android:layout_marginBottom="15dp"
        android:ems="10"
-       android:hint="precio"
+       android:hint="Precio"
+       android:padding="5dp"
        android:inputType="number"
+       android:background="@color/Wheat"
        app:layout_constraintBottom_toTopOf="@+id/btnAgregar"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent" />
@@ -62,6 +66,8 @@
        android:layout_marginEnd="69dp"
        android:layout_marginBottom="24dp"
        android:ems="10"
+       android:padding="5dp"
+       android:background="@color/Wheat"
        android:hint="Descripcion"
        android:inputType="textPersonName"
        app:layout_constraintBottom_toTopOf="@+id/imageView2"
@@ -70,10 +76,12 @@
 
    <Spinner
        android:id="@+id/spinnerCategoria"
+       android:background="@color/Wheat"
        android:layout_width="277dp"
        android:layout_height="48dp"
        android:layout_marginTop="25dp"
        android:layout_marginBottom="27dp"
+       android:padding="5dp"
        android:contentDescription="@string/google_app_id"
        app:layout_constraintBottom_toTopOf="@+id/editTextDescripcion"
        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
@@ -112,6 +120,7 @@
        app:layout_constraintBottom_toTopOf="@+id/edittextPrecio"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent"
+       android:background="@color/AliceBlue"
        app:srcCompat="@drawable/articulos" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -57,4 +57,12 @@ public class FirestorePersistence  implements  persistenciaDAO{
    public void read() {
 
    }
+
+   public  void agregar(String collection,Object dato){
+
+   }
+
+   public  void close(){
+
+   }
 }
