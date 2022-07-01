@@ -67,12 +67,11 @@ FragmentLoginBinding binding;
                 Log.e( "btnLogin","btn Login clicked");
 
 
-                String userMail= binding.idEdtUserName.getText().toString();
-                String password = binding.idEdtPassword.getText().toString();
-
-                //loginUser(v);
+                loginUser(v);
+                /*
                 Navigation.findNavController(v).navigate(
                         R.id.action_loginFragment_to_listaArticuloFragment);
+                */
             }
 
         });
@@ -128,6 +127,9 @@ FragmentLoginBinding binding;
             Log.e("Autentificarse", "failes login !!!");
             Toast.makeText(this.getContext().getApplicationContext(), "No hemos posido autentificarse", Toast.LENGTH_SHORT).show();
         }
+
+
+
     }
 
     @Override

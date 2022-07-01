@@ -18,7 +18,6 @@
        android:layout_marginEnd="70dp"
        android:ems="10"
        android:hint="Nombre"
-
        android:padding="5dp"
        android:background="@color/Wheat"
        android:inputType="textPersonName"
@@ -76,13 +75,14 @@
 
    <Spinner
        android:id="@+id/spinnerCategoria"
-       android:background="@color/Wheat"
        android:layout_width="277dp"
        android:layout_height="48dp"
        android:layout_marginTop="25dp"
        android:layout_marginBottom="27dp"
-       android:padding="5dp"
        android:contentDescription="@string/google_app_id"
+       android:padding="5dp"
+       android:background="@drawable/back_border"
+       android:popupBackground="@color/AliceBlue"
        app:layout_constraintBottom_toTopOf="@+id/editTextDescripcion"
        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"

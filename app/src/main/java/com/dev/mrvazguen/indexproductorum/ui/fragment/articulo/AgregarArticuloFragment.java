@@ -78,9 +78,16 @@ public class AgregarArticuloFragment extends Fragment {
                 Articulo articulo = new Articulo("","",new ArrayList<>(),3);
                 firestorePersistence.agregar("",articulo);
                 firestorePersistence.close();
+
+                closefragment();
+                //getActivity().getFragmentManager().beginTransaction().remove(this).commit();
+
             }
         });
         ///endregion
         return  binding.getRoot();
     }
+    private void closefragment() {
+        getActivity().getFragmentManager().popBackStack();
+       }
 }
