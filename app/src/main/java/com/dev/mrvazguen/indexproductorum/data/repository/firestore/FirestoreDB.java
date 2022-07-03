@@ -14,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -74,7 +75,8 @@ public class FirestoreDB<T>  extends FirebaseDao {
 
             @Override
             public void onSuccess(QuerySnapshot snapshot) {
-                // snapshot.toObjects(FirestoreDB.class);
+               //List lista =  snapshot.toObjects(FirestoreDB.class);
+
                 for (DocumentChange doc : snapshot.getDocumentChanges())
                     switch (doc.getType()) {
                         case ADDED:
