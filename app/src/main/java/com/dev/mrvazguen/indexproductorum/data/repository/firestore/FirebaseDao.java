@@ -24,8 +24,8 @@ public abstract class FirebaseDao <T> {
     /**
      *  lee en firestore todos los datos
      * @param collrectionPath ruta de documento
-     * @param objeto type of class
+     * @param list  list of object
      * @return retorn todos los valores
      */
-    public  abstract ArrayList<Object> read(String collrectionPath, Object objeto);
+    public  abstract void read(String collrectionPath, ArrayList<FirestoreDB> list);
 }
