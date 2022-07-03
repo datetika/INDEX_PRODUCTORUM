@@ -199,6 +199,29 @@ dependencies {
             }
         });
 ```
+
+### Generic JAVA  [:link:](https://www.infoworld.com/article/3543252/how-to-use-java-generics-to-avoid-classcastexceptions.html)  && WildCard Java
+```
+public class AnimalFeederGeneric<T> {
+    private Class<T> type;
+
+    public AnimalFeederGeneric(Class<T> type) {
+        this.type = type;
+    }
+
+    public List<T> feed(List<Animal> animals) {
+        List<T> list = new ArrayList<T>();
+        animals.forEach(animal -> {
+            if (type.isInstance(animal)) {
+                T objAsType = type.cast(animal);
+                list.add(objAsType);
+            }
+        });
+        return list;
+    }
+
+}
+```
 ## UI 
 ![imagen](https://user-images.githubusercontent.com/33204630/175988029-d7367899-4be3-4967-aa5e-1676cf02d40b.png)
 
