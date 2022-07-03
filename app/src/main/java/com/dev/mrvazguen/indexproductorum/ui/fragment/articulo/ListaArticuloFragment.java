@@ -7,6 +7,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ public class ListaArticuloFragment extends Fragment {
         FirestoreDB<Articulo> firestoreDB = new FirestoreDB<Articulo>(GlobarArgs.ARTICULO_COLLECTION_PATH);
         ArrayList<Articulo>articulos =  new ArrayList<>();
         firestoreDB.read(articulos,  new Articulo());
+        Log.e("ListaArticulosFragment","Array lista articulos size: "+articulos.size());//TODO error array size =0 (No actualiza)
         //If DB is empty
         if(articulos.size()==0)
            articulos.add(new Articulo("Default_item_articulo"));
