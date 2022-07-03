@@ -1,10 +1,14 @@
 package com.dev.mrvazguen.indexproductorum.data.model;
 
+import com.google.firebase.firestore.Exclude;
+
 import java.util.ArrayList;
 
 public class Articulo {
 
     ///region Fields
+    @Exclude
+    public String id;
     private  String nombre;
     private  String descripcion;
     private ArrayList<String>categoria;

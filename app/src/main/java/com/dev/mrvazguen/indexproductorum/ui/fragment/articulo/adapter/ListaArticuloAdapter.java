@@ -52,7 +52,7 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
         TextView title;
         public LlistarArticuloViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.tvListItem);
+            title = itemView.findViewById(R.id.tvNombre);
         }
         public TextView getView(){return title;}
     };

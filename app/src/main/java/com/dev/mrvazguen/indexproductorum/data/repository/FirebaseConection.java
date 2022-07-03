@@ -9,11 +9,12 @@ public class FirebaseConection    {
     private  static  FirebaseUser firebaseUser;
     private  final String nombreProyecto="";
 
-    public static void crearConection(){
+    public static void  crearConection(){
         if(mAuth==null){
             mAuth = FirebaseAuth.getInstance();
             firebaseUser = mAuth.getCurrentUser();
         }
+
     }
 
     public static   boolean closeConection(){

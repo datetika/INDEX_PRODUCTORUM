@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dev.mrvazguen.indexproductorum.R;
-import com.dev.mrvazguen.indexproductorum.data.repository.FirebaseConection;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentMainBinding;
 
 /**

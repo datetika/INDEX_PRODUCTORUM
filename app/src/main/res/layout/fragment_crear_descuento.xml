@@ -97,5 +97,21 @@
             android:layout_height="24dp"
             tools:layout_editor_absoluteX="129dp"
             tools:layout_editor_absoluteY="421dp" />
+
+        <Button
+            android:id="@+id/btnAgregar"
+            android:layout_width="155dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="129dp"
+            android:layout_marginTop="58dp"
+            android:layout_marginEnd="127dp"
+            android:layout_marginBottom="168dp"
+            android:backgroundTint="@color/Black"
+            android:text="Agregar"
+            android:textSize="22dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

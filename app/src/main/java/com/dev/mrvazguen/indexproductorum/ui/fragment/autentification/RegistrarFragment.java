@@ -6,8 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +16,10 @@ import com.dev.mrvazguen.indexproductorum.R;
 
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
 import com.dev.mrvazguen.indexproductorum.data.repository.FirebaseConection;
-import com.dev.mrvazguen.indexproductorum.databinding.FragmentLoginBinding;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentRegistrarBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseUser;
 
 public class RegistrarFragment extends Fragment {
 FragmentRegistrarBinding binding;
@@ -72,7 +68,7 @@ FragmentRegistrarBinding binding;
 
                 String correo =binding.editTextTextCorreo.getText().toString();
                 String pasword = binding.editTextTextPassword.getText().toString();
-                String nombre = binding.editTextTextPersonName.getText().toString();
+                String nombre = binding.editTextTextNombre.getText().toString();
                 Usuari user = new Usuari(nombre, correo,pasword);
 
                 if(isValidat(user)){

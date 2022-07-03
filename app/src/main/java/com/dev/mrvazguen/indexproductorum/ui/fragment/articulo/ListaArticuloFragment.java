@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
+import com.dev.mrvazguen.indexproductorum.data.repository.FirestoreArticulo;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.ListaArticuloAdapter;
+import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 
 import java.util.ArrayList;
 
@@ -36,7 +38,9 @@ public class ListaArticuloFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_lista_articulos, container, false);
 
-        //Cargar los datos de Firestore
+
+
+        //Cargar los datos de FirestoreArticulo
         ArrayList<Articulo>articulos = new ArrayList<>();
         articulos.add(new Articulo("Default_item_articulo"));
 
