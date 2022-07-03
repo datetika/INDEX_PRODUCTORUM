@@ -16,6 +16,7 @@ public class Articulo {
     ///endregion
 
     ///region Constructor
+    public  Articulo(){};
     public  Articulo(String nombre){
         this.nombre = nombre;
     }

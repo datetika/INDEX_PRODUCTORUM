@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
+import com.dev.mrvazguen.indexproductorum.data.repository.firestore.FirestoreDB;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.ListaArticuloAdapter;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 
@@ -40,8 +41,12 @@ public class ListaArticuloFragment extends Fragment {
 
 
         //Cargar los datos de FirestoreArticulo
-        ArrayList<Articulo>articulos = new ArrayList<>();
-        articulos.add(new Articulo("Default_item_articulo"));
+        FirestoreDB<Articulo> firestoreDB = new FirestoreDB<Articulo>(GlobarArgs.ARTICULO_COLLECTION_PATH);
+        ArrayList<Articulo>articulos =  new ArrayList<>();
+        firestoreDB.read(articulos,  new Articulo());
+        //If DB is empty
+        if(articulos.size()==0)
+           articulos.add(new Articulo("Default_item_articulo"));
 
         // Add the following lines to create RecyclerView
         recyclerView = view.findViewById(R.id.recyclerViewItemArticulos);

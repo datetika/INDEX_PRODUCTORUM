@@ -1,5 +1,6 @@
 package com.dev.mrvazguen.indexproductorum.data.repository.firestore;
 
+import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
 import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,9 +24,9 @@ public abstract class FirebaseDao <T> {
 
     /**
      *  lee en firestore todos los datos
-     * @param collrectionPath ruta de documento
      * @param list  list of object
+     * @param tipoClase
      * @return retorn todos los valores
      */
-    public  abstract void read(String collrectionPath, ArrayList<FirestoreDB> list);
+    public  abstract void read(ArrayList<T> list, Object tipoClase);
 }

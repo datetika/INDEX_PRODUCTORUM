@@ -2,6 +2,7 @@ package com.dev.mrvazguen.indexproductorum.data.repository.firestore;
 
 import androidx.annotation.NonNull;
 
+import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
 import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -21,12 +22,12 @@ import java.util.Map;
  * @version  07/2022
  */
 
-public class FirestoreDB  extends FirebaseDao {
-    Object clase ;
+public class FirestoreDB<T>  extends FirebaseDao {
+     private  String collrectionPath;
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public  FirestoreDB(Object claseBase){
-        this.clase = claseBase;
+    public  FirestoreDB( String collectionPath){
+         this.collrectionPath = collectionPath;
     }
 
     /**
@@ -55,9 +56,16 @@ public class FirestoreDB  extends FirebaseDao {
                     }
                 });
     }
-
+    public static <T> T convertInstanceOfObject(Object o) {
+        try {
+            T rv = (T)o;
+            return rv;
+        } catch(java.lang.ClassCastException e) {
+            return null;
+        }
+    }
     @Override
-    public void read(String collrectionPath, ArrayList lista) {
+    public void read(ArrayList lista, Object tipoClase) {
 
         CollectionReference userRef = db.collection(collrectionPath);
 
@@ -66,15 +74,14 @@ public class FirestoreDB  extends FirebaseDao {
 
             @Override
             public void onSuccess(QuerySnapshot snapshot) {
-                snapshot.toObjects(FirestoreDB.class);
-
-
+                // snapshot.toObjects(FirestoreDB.class);
                 for (DocumentChange doc : snapshot.getDocumentChanges())
                     switch (doc.getType()) {
                         case ADDED:
-                            Map<String, Object> documents = doc.getDocument().getData();
+                            Map<String, T> documents = (Map<String, T>) doc.getDocument().getData();
                             //Object[] fieldArray = documents.entrySet().toArray();//All field of firestore document
-                            lista.add((FirestoreDB) documents);
+
+                            lista.add( documents);
                             break;
                         case REMOVED:
                             String id = doc.getDocument().getId();
@@ -96,4 +103,6 @@ public class FirestoreDB  extends FirebaseDao {
 
         });
     }
+
+
 }
