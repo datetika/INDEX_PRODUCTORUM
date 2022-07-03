@@ -17,6 +17,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,19 +63,26 @@ public class FirestoreDB  extends FirebaseDao {
     }
 
     @Override
-    public Map<String, Object> read(String collrectionPath, Object objeto) {
-        final ArrayList<FirestoreDB> query = null;
-        CollectionReference userRef = db.collection(collrectionPath);
-        userRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-              queryDocumentSnapshots.toObjects(FirestoreDB.class);
-                for(DocumentChange doc:queryDocumentSnapshots.getDocumentChanges()){
+    public  ArrayList<Object> read(String collrectionPath, Object objeto) {
 
+        final ArrayList<FirestoreDB> query = new ArrayList<>();
+        ArrayList<Object>lista = new ArrayList<>();
+        CollectionReference userRef = db.collection(collrectionPath);
+
+        userRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            private Object firestoreDB;
+
+            @Override
+            public void onSuccess(QuerySnapshot snapshot) {
+              snapshot.toObjects(FirestoreDB.class);
+
+
+              for(DocumentChange doc:snapshot.getDocumentChanges())
                     switch (doc.getType()){
                         case ADDED:
                             Map<String,Object> documents = doc.getDocument().getData();
-
+                            //Object[] fieldArray = documents.entrySet().toArray();//All field of firestore document
+                            lista.add(documents);
                             break;
                         case REMOVED:
 
@@ -83,11 +91,11 @@ public class FirestoreDB  extends FirebaseDao {
 
                             break;
                     }
-                }
+
             }
 
 
         });
-        return null;
+        return lista;
     }
 }

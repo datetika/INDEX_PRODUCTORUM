@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
-import com.dev.mrvazguen.indexproductorum.data.repository.FirestoreArticulo;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.ListaArticuloAdapter;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 
