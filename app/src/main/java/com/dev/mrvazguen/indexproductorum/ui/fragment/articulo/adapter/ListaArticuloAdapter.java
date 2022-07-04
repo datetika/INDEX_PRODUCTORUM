@@ -12,10 +12,11 @@ import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdapter.LlistarArticuloViewHolder> {
     private Articulo articulo;
-    private ArrayList<Articulo>articulos;
+    private ArrayList <Articulo> articulos;
     private  int nItems=0;
 
     /*
@@ -24,7 +25,7 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
         nItems++;
     }
 */
-   public  ListaArticuloAdapter(ArrayList<Articulo> articulos){
+   public  ListaArticuloAdapter(ArrayList <Articulo> articulos){
         this.articulos =articulos;
         nItems = articulos.size();
    }

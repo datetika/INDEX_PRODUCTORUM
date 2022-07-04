@@ -2,6 +2,7 @@ package com.dev.mrvazguen.indexproductorum.ui.fragment.articulo;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -16,10 +17,15 @@ import android.widget.Toast;
 
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
-import com.dev.mrvazguen.indexproductorum.data.repository.firestore.FirestoreDB;
+import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.ArticuloManagerDB;
 import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentAgregarArticuloBinding;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -28,7 +34,7 @@ public class AgregarArticuloFragment extends Fragment {
     Spinner spinner;
     ArrayAdapter<CharSequence> adapterCategoria;
     FragmentAgregarArticuloBinding binding;
-    FirestoreDB firestorePersistence;
+    ArticuloManagerDB firestorePersistence;
 
     public AgregarArticuloFragment() {
         // Required empty public constructor
@@ -39,14 +45,33 @@ public class AgregarArticuloFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        firestorePersistence = new FirestoreDB(GlobarArgs.ARTICULO_COLLECTION);
+        firestorePersistence = new ArticuloManagerDB("");
         ///region adapter of Spinner categoria
         adapterCategoria = ArrayAdapter.createFromResource(this.getActivity().getApplicationContext(),
                 R.array.categoria_array, android.R.layout.simple_spinner_item);
         adapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ///endregion
-        
 
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("GlobalCollection/articulos/collectionArticulos")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                //Log.d("firestore", document.getId() + " => " + document.getData());
+                                Articulo articulo = document.toObject(Articulo.class);
+                                 Log.d("firestoreR","articulo: "+articulo.toString());
+                            }
+                        } else {
+                            // Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
     }
 
@@ -88,7 +113,7 @@ public class AgregarArticuloFragment extends Fragment {
                 iFirestoreNotification iErrorMesgage= new iFirestoreNotification() {
                     @Override
                     public void OnSuccess() {
-                        Log.e(TAG,"Agregado articulo con exito");
+                       // Log.e(TAG,"Agregado articulo con exito");
 
                         //Navega al fragment anterior
                         Navigation.findNavController(v).navigate(R.id.listaArticuloFragment);
@@ -97,7 +122,8 @@ public class AgregarArticuloFragment extends Fragment {
                     @Override
                     public void OnFailure() {
                         Log.e(TAG,"hemos encontrado error al agregar articulo");
-                        Toast.makeText(getActivity(),"",Toast.LENGTH_SHORT);
+                        Toast.makeText(AgregarArticuloFragment.this.getActivity(),"hemos encontrado error al agregar articulo",Toast.LENGTH_SHORT);
+
                     }
                 };
 

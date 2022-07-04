@@ -6,10 +6,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Map;
 
 //Generic abstract class
-public abstract class FirebaseDao <T> {
+public abstract class FirebaseDao <E> {
     protected  static   final   DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference();
     protected String tableName;
     public  FirebaseDao(){
@@ -20,13 +21,15 @@ public abstract class FirebaseDao <T> {
     }
 
 
-    public abstract void append(Object articulo, iFirestoreNotification iErrorMesgage);
+    public abstract void append(E articulo, iFirestoreNotification iErrorMesgage);
 
     /**
-     *  lee en firestore todos los datos
+     *  lee en firestore todos los datos en tiempo real
      * @param list  list of object
      * @param tipoClase
      * @return retorn todos los valores
      */
-    public  abstract void read(ArrayList<T> list, Object tipoClase);
+    public  abstract void readLiveDate(ArrayList<E> list, Object tipoClase);
+    public abstract  void   read(ArrayList<E>lista, iFirestoreNotification notificationEstat) ;
+
 }
