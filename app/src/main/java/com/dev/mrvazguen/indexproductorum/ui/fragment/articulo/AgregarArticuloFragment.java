@@ -22,7 +22,10 @@ import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentAgregarArticuloBinding;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -38,40 +41,18 @@ public class AgregarArticuloFragment extends Fragment {
 
     public AgregarArticuloFragment() {
         // Required empty public constructor
-
+      firestorePersistence = new ArticuloManagerDB(GlobarArgs.ARTICULO_COLLECTION_PATH);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        firestorePersistence = new ArticuloManagerDB("");
         ///region adapter of Spinner categoria
         adapterCategoria = ArrayAdapter.createFromResource(this.getActivity().getApplicationContext(),
                 R.array.categoria_array, android.R.layout.simple_spinner_item);
         adapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ///endregion
-
-
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        db.collection("GlobalCollection/articulos/collectionArticulos")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                //Log.d("firestore", document.getId() + " => " + document.getData());
-                                Articulo articulo = document.toObject(Articulo.class);
-                                 Log.d("firestoreR","articulo: "+articulo.toString());
-                            }
-                        } else {
-                            // Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
 
     }
 
@@ -83,6 +64,9 @@ public class AgregarArticuloFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_agregar_articulo, container, false);
 
         binding = FragmentAgregarArticuloBinding.bind(v);
+
+
+
 
         ///region spiner categoria
         spinner =  binding.spinnerCategoria;
@@ -107,8 +91,12 @@ public class AgregarArticuloFragment extends Fragment {
 
                 ArrayList<String>categoria = new ArrayList<>();
                 categoria.add(binding.spinnerCategoria.getSelectedItem().toString());
-                Articulo articulo = new Articulo(binding.editTextTextNombre.getText().toString(),binding.editTextDescripcion.getText().toString(),categoria,Double.parseDouble( binding.edittextPrecio.getText().toString()));
 
+                Articulo articulo = new Articulo(binding.editTextTextNombre.getText().toString(),binding.editTextDescripcion.getText().toString(),categoria,Double.parseDouble( binding.edittextPrecio.getText().toString()));
+               if(! validarDatos(articulo)){
+                   Toast.makeText(getActivity().getApplicationContext(),"Campos no son validos !!!",Toast.LENGTH_SHORT);
+               }
+               else{
                 // interface to notificate  state of apend method
                 iFirestoreNotification iErrorMesgage= new iFirestoreNotification() {
                     @Override
@@ -128,11 +116,17 @@ public class AgregarArticuloFragment extends Fragment {
                 };
 
                 firestorePersistence.append(articulo, iErrorMesgage);
-            }
+            }}
         });
         ///endregion
         return  binding.getRoot();
     }
+
+    private boolean validarDatos(Articulo articulo) {
+
+        return  !articulo.getCategoria().isEmpty()&& !articulo.getDescripcion().isEmpty()& articulo.getPrecio()>0& !articulo.getNombre().isEmpty();
+    }
+
     private void closefragment() {
         /*
         FragmentManager fragmentManager =getActivity().getSupportFragmentManager();
@@ -144,5 +138,5 @@ public class AgregarArticuloFragment extends Fragment {
 
          */
 
-       }
+    }
 }

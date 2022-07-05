@@ -2,6 +2,7 @@ package com.dev.mrvazguen.indexproductorum.data.repository.firestore;
 
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
 import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
+import com.dev.mrvazguen.indexproductorum.data.repository.iTaskNotification;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,6 +31,6 @@ public abstract class FirebaseDao <E> {
      * @return retorn todos los valores
      */
     public  abstract void readLiveDate(ArrayList<E> list, Object tipoClase);
-    public abstract  void   read(ArrayList<E>lista, iFirestoreNotification notificationEstat) ;
+    public abstract  void   read( iTaskNotification notificationEstat) ;
 
 }

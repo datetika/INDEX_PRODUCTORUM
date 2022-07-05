@@ -18,6 +18,7 @@ import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.ArticuloManagerDB;
 import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
+import com.dev.mrvazguen.indexproductorum.data.repository.iTaskNotification;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.ListaArticuloAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,15 +28,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListaArticuloFragment extends Fragment {
     ArrayList<Articulo>articulos;
     private RecyclerView recyclerView;
     private  ListaArticuloAdapter adapter;
 
+    public  iTaskNotification<Articulo> iTaskNotification;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
 
     }
@@ -54,38 +60,31 @@ public class ListaArticuloFragment extends Fragment {
 
 
         articulos = new ArrayList<>();
-        articulos.add(new Articulo("Empty_Date"));
-
-
-        //If DB is empty
-      //  if(articulos.size()==0)
-        //  articulos.add(new Articulo("Empty_DATE"));
-
         //Cargar los datos de FirestoreArticulo
-        iFirestoreNotification notification = new iFirestoreNotification() {
+        iTaskNotification = new iTaskNotification<Articulo>(){
             @Override
-            public void OnSuccess() {
-                Log.e("ReadFirebase","Hemos leido con exito !!!!");
-                adapter.notifyDataSetChanged();
+            public void OnSucces(List<Articulo> lista) {
+                articulos= (ArrayList<Articulo>) lista;
+                adapter= new ListaArticuloAdapter(articulos);
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
-            public void OnFailure() {
-                Log.e("ReadFirebase","No hemos podido leer los datos del DB !!!!");
+            public void OnFail(String msg) {
+               Log.d("ArticuloManagerDB",msg);
+                articulos.add(new Articulo("Empty_DATE"));
+                adapter= new ListaArticuloAdapter(articulos);
+                recyclerView.setAdapter(adapter);
             }
         };
 
-        articuloManagerDB.read(articulos, notification);
+        articuloManagerDB.read( iTaskNotification);
         Log.e("ListaArticulosFragment","Array lista articulos size: " + articulos.size());
 
-
-
         // Add the following lines to create RecyclerView
-        adapter= new ListaArticuloAdapter(articulos);
         recyclerView = view.findViewById(R.id.recyclerViewItemArticulos);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(adapter);
 
         view.findViewById(R.id.floatingActionButtonAdd).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +93,6 @@ public class ListaArticuloFragment extends Fragment {
                         R.id.action_listaArticuloFragment_to_agregarArticuloFragment);
             }
         });
-
-
 
 
         return view;

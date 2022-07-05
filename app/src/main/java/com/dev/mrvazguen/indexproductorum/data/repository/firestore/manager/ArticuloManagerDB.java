@@ -12,6 +12,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.FirebaseDao;
 import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
+import com.dev.mrvazguen.indexproductorum.data.repository.iTaskNotification;
+import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.ListaArticuloFragment;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,22 +45,31 @@ String collectionPath;
 
     @Override
     public void append(Articulo articulo, iFirestoreNotification transactionNotification) {
-        DocumentReference articulosCR = db
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        CollectionReference articulosCR = db
                 .collection(GlobarArgs.GLOBAL_Collection)
-                .document(GlobarArgs.ARTICULO_DOCUMENTO);
+                .document(GlobarArgs.ARTICULO_DOCUMENTO)
+                .collection(GlobarArgs.ARTICULO_COLLECTION);
         //articulosCR.document(articulo.getCategoria().get(0)).set(articulo);
 
-
-
-        articulosCR.set(articulo).addOnSuccessListener(new OnSuccessListener<Void>() {
+       String TAG = "Apend_ARticuloManager";
+       articulosCR.add(articulo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
-            public void onSuccess(Void unused) {
-                transactionNotification.OnSuccess();
+            public void onSuccess(DocumentReference documentReference) {
+                Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+            transactionNotification.OnSuccess();
+
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error adding document", e);
+                transactionNotification.OnFailure();
             }
         });
-
-
-
     }
     @Override
     public void readLiveDate(ArrayList<Articulo> list, Object tipoClase) {
@@ -115,9 +126,7 @@ String collectionPath;
     }
 
     @Override
-    public void   read(ArrayList<Articulo>list, iFirestoreNotification notification) {
-
-
+    public void   read( iTaskNotification notification) {
         ///region tmp
        /* FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference cfArticulo =db.collection(GlobarArgs.ARTICULO_COLLECTION_PATH);
@@ -197,28 +206,32 @@ String collectionPath;
 
         */
        ///endregion
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        db.collection("GlobalCollection/articulos/collectionArticulos")
+          db
+            .collection(GlobarArgs.GLOBAL_Collection)
+            .document(GlobarArgs.ARTICULO_DOCUMENTO)
+            .collection(GlobarArgs.ARTICULO_COLLECTION)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                             List<Articulo>articuloList = new ArrayList<>();
+                            List<Articulo>list = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("Firestore_Result", document.getId() + " => " + document.getData());
                                 Articulo articulo = document.toObject(Articulo.class);
                                 list.add(articulo);
 
                             }
+                            notification.OnSucces(list);
                         } else {
                            // Log.d(TAG, "Error getting documents: ", task.getException());
+                            notification.OnFail("Fail to read FIrestore DB from ArticuloManagerDB");
                         }
 
                     }
 
                 });
-        //return   list;
+
     }
 }
