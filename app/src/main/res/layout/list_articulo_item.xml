@@ -2,25 +2,28 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/LightSkyBlue"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    android:background="@color/AliceBlue"
+    android:orientation="horizontal"
+    android:padding="2dp"
+    android:paddingStart="10dp">
 
     <TextView
         android:id="@+id/tvNombre"
-        android:background="@color/LightGrey"
-        android:textSize="30dp"
-        android:padding="2dp"
-        android:layout_marginLeft="70dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Empty field text ..." />
+        android:layout_marginLeft="70dp"
+        android:background="@color/Bisque"
+        android:hint="Empty field text ..."
+        android:padding="2dp"
+        android:textSize="30dp" />
 
     <ImageView
         android:id="@+id/imgViewIcono"
         android:layout_width="60dp"
         android:layout_height="45dp"
+        android:background="@color/Beige"
         app:srcCompat="@drawable/articulos" />
 </FrameLayout>

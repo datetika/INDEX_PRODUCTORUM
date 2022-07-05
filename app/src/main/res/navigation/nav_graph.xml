@@ -80,6 +80,14 @@
         <action
             android:id="@+id/action_listaArticuloFragment_to_agregarArticuloFragment"
             app:destination="@id/agregarArticuloFragment" />
+        <action
+            android:id="@+id/action_listaArticuloFragment_to_mostrarArticuloFragment"
+            app:destination="@id/mostrarArticuloFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mostrarArticuloFragment"
+        android:name="com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.MostrarArticuloFragment"
+        android:label="fragment_mostrar_articulo"
+        tools:layout="@layout/fragment_mostrar_articulo" />
 
 </navigation>

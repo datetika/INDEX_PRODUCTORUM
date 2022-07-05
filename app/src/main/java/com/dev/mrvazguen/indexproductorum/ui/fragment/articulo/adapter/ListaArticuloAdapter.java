@@ -1,5 +1,6 @@
 package com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,13 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
     @Override
     public LlistarArticuloViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_articulo_item,parent,false);
+       view.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Log.d("Item_recylerView_Articulo",((TextView)v.findViewById(R.id.tvNombre)).getText().toString());
+           }
+       });
+
         return new LlistarArticuloViewHolder(view);
     }
 

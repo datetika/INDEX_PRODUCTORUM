@@ -1,5 +1,8 @@
 package com.dev.mrvazguen.indexproductorum.data.model;
 
+import androidx.annotation.AttrRes;
+ 
+
 public class Usuari {
     String nombre;
     String email;
