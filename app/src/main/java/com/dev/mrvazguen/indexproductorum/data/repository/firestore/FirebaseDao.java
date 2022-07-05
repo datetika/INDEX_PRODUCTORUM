@@ -33,4 +33,6 @@ public abstract class FirebaseDao <E> {
     public  abstract void readLiveDate(ArrayList<E> list, Object tipoClase);
     public abstract  void   read( iTaskNotification notificationEstat) ;
 
+    public abstract  void readRealtimeListener( iTaskNotification notificationEstat);
+
 }

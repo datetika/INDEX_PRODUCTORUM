@@ -234,4 +234,33 @@ String collectionPath;
                 });
 
     }
+
+    @Override
+    public void readRealtimeListener(iTaskNotification notificationEstat) {
+             db
+                .collection(GlobarArgs.GLOBAL_Collection)
+                .document(GlobarArgs.ARTICULO_DOCUMENTO)
+                .collection(GlobarArgs.ARTICULO_COLLECTION)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+
+                        }
+
+                        List<Articulo> list = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : value) {
+                            Log.d("Firestore_Result", document.getId() + " => " + document.getData());
+                            Articulo articulo = document.toObject(Articulo.class);
+                            list.add(articulo);
+
+                        }
+                        if(list.size()>0)
+                          notificationEstat.OnSucces(list);
+                        else
+                            notificationEstat.OnFail("No hemos podido leer datos (Firestore Realtime) !!!");
+                    }
+                });
+    }
 }

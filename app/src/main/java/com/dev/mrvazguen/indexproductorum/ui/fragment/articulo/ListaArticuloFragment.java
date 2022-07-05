@@ -78,7 +78,8 @@ public class ListaArticuloFragment extends Fragment {
             }
         };
 
-        articuloManagerDB.read( iTaskNotification);
+        articuloManagerDB.readRealtimeListener(iTaskNotification);
+
         Log.e("ListaArticulosFragment","Array lista articulos size: " + articulos.size());
 
         // Add the following lines to create RecyclerView
