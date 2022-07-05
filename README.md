@@ -15,7 +15,7 @@
 4. Compartir la lista con otros usuarios y  valorar  la compra
 4. Crear promociones de la  compra
 5. Animaciones
- 
+
 ### TAREAS A HACER
 - [X] CREAR UI
 - [ ] CREAR UML
@@ -39,7 +39,7 @@
 ### Herramientas utilizadas
 * SqLite (local)
 * Firestore (remoto)
-  <br /><br /> 
+  <br /><br />
 
 ## Extenciones de Grandle
 > Instrucciones de configuración:
@@ -89,7 +89,7 @@
     //implementation "androidx.navigation:navigation-compose:$nav_version"
 
 ```
-  
+
 > Cómo agregar un NavHostFragment a través de XML
 ``` 
 <?xml version="1.0" encoding="utf-8"?>
@@ -147,7 +147,7 @@ dependencies {
 ```
 
 ### FirebaseUI for Cloud Firestore [:link:](https://firebaseopensource.com/projects/firebase/firebaseui-android/firestore/readme/) && github  [:link:](https://github.com/firebase/firebaseui-android/)
-> Notificar  cambios de firestore 
+> Notificar  cambios de firestore
 ```
   FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference tripsRef = db.collection("trips");
@@ -222,7 +222,7 @@ public class AnimalFeederGeneric<T> {
 
 }
 ```
-## UI 
+## UI
 ![imagen](https://user-images.githubusercontent.com/33204630/175988029-d7367899-4be3-4967-aa5e-1676cf02d40b.png)
 
 
