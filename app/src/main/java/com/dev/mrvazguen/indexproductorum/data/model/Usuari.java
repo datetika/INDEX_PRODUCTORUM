@@ -8,10 +8,15 @@ public class Usuari {
     String email;
     String pasword;
 
-    public  Usuari(String nombre,String email,String pasword){
+    public  Usuari(String email,String userId){
         this.nombre = nombre;
-        this.pasword= pasword;
         this.email = email;
+    }
+
+    public  Usuari(String nombre,String email,String pasword) {
+        this(nombre,email);
+        this.pasword= pasword;
+
     }
 
     public String getNombre() {

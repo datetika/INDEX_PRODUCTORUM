@@ -40,9 +40,15 @@ public class MostrarArticuloFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        String nombre= getArguments().getString(GlobarArgs.articuloEnum.nombre.toString());
+       String descripcon= getArguments().getString(GlobarArgs.articuloEnum.descripcion.toString());
+       Double precio= getArguments().getDouble(GlobarArgs.articuloEnum.precio.toString());
+       String categoria= getArguments().getString(GlobarArgs.articuloEnum.categoria.toString());
        View view = inflater.inflate(R.layout.fragment_mostrar_articulo, container, false);
         // Inflate the layout for this fragment
         ((TextView) view.findViewById(R.id.tv_NomArticle)).setText(nombre);
+        ((TextView) view.findViewById(R.id.tv_Descripcion)).setText(descripcon);
+        ((TextView) view.findViewById(R.id.tv_Categoria)).setText(categoria);
+        ((TextView) view.findViewById(R.id.tv_Precio)).setText(String.valueOf(precio));
         return view;
     }
 }

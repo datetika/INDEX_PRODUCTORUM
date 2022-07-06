@@ -8,6 +8,7 @@
     android:background="@color/AliceBlue"
     android:orientation="horizontal"
     android:padding="2dp"
+    android:tag=""
     android:paddingStart="10dp">
 
     <TextView

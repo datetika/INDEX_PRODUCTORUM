@@ -3,10 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/new_game"
-        android:title="Ahorrar"
+        android:title="Opcion1"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/help"
-        android:icon="@drawable/ahorro"
-        android:title="Lista" />
+        android:id="@+id/new_game2"
+        android:title="Opcion2"
+        app:showAsAction="ifRoom" />
+
 </menu>

@@ -1,5 +1,6 @@
 package com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -44,8 +47,21 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
            public void onClick(View v) {
                Log.d("Item_recylerView_Articulo",((TextView)v.findViewById(R.id.tvNombre)).getText().toString());
                Bundle bundle = new Bundle();
-               String nombreArticulo =((TextView)v.findViewById(R.id.tvNombre)).getText().toString();
+
+               String posicion = (String) v.findViewById(R.id.tvNombre).getTag();
+               String nombreArticulo = articulos.get(Integer.parseInt(posicion)).getNombre();  //((TextView)v.findViewById(R.id.tvNombre)).getText().toString();
+               String descripcion = articulos.get(Integer.parseInt(posicion)).getDescripcion();
+               double precio = articulos.get(Integer.parseInt(posicion)).getPrecio();
+               String categoria="";
+               for(String c : articulos.get(Integer.parseInt(posicion)).getCategoria()){
+                   categoria+=c+" ";
+               }
+
                bundle.putString(GlobarArgs.articuloEnum.nombre.toString(),nombreArticulo);
+               bundle.putString(GlobarArgs.articuloEnum.descripcion.toString(),descripcion);
+               bundle.putDouble(GlobarArgs.articuloEnum.precio.toString(),precio);
+               bundle.putString(GlobarArgs.articuloEnum.categoria.toString(),categoria);
+
                Navigation.findNavController(view).navigate(R.id.mostrarArticuloFragment, bundle);
 
            }
@@ -57,7 +73,8 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
     @Override
     public void onBindViewHolder(@NonNull LlistarArticuloViewHolder holder, int position) {
         //holder.getView().setText( articulo.getNombre());
-        holder.getView().setText(articulos.get(position).getNombre());
+        holder.getTextView().setText(articulos.get(position).getNombre());
+        holder.getTextView().setTag(String.valueOf( position));//We put the position in the tag
     }
 
     @Override
@@ -68,10 +85,11 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
 
     public  class LlistarArticuloViewHolder extends  RecyclerView.ViewHolder {
         TextView title;
+
         public LlistarArticuloViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tvNombre);
         }
-        public TextView getView(){return title;}
+        public TextView getTextView(){return title;}
     };
 }

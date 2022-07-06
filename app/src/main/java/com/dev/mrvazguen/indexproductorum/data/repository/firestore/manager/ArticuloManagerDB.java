@@ -249,9 +249,7 @@ String collectionPath;
                 @Override
                 public void onEvent(@Nullable QuerySnapshot value,
                                     @Nullable FirebaseFirestoreException e) {
-                    if (e != null) {
 
-                    }
 
                     List<Articulo> list = new ArrayList<>();
                     for (QueryDocumentSnapshot document : value) {

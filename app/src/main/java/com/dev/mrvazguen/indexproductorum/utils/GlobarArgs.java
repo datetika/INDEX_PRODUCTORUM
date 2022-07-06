@@ -7,7 +7,7 @@ import java.net.PortUnreachableException;
 * */
 public class GlobarArgs {
 
-    public enum  articuloEnum {id,nombre,descripcion,precio}
+    public enum  articuloEnum {id,nombre,descripcion,categoria,precio}
 
     public   static final  String  DB_SHOPING="shoping";
     public  static final  String  DB_DEALS="deals";

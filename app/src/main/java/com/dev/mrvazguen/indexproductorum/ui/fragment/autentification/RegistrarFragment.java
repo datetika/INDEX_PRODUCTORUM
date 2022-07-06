@@ -16,10 +16,13 @@ import com.dev.mrvazguen.indexproductorum.R;
 
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
 import com.dev.mrvazguen.indexproductorum.data.repository.FirebaseConection;
+import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.UserManagerDB;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentRegistrarBinding;
+import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.firestore.auth.User;
 
 public class RegistrarFragment extends Fragment {
 FragmentRegistrarBinding binding;
@@ -96,6 +99,13 @@ FragmentRegistrarBinding binding;
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseConection.settUser(FirebaseConection.getmAuth().getCurrentUser());
+                            //TODO assign user id in global args
+                            GlobarArgs.USER_ID= FirebaseConection.getmAuth().getCurrentUser().getUid();
+                            UserManagerDB userManagerDB = new UserManagerDB();
+                            String email =FirebaseConection.getmAuth().getCurrentUser().getEmail();
+                            Usuari user = new Usuari(email,GlobarArgs.USER_ID);
+                            userManagerDB.addUser(user, GlobarArgs.USER_ID);
+
                             Navigation.findNavController(v).navigate(
                                     R.id.action_registrarFragment_to_listaArticuloFragment);
                             Toast.makeText(getContext(),"Sighn in with successful ",Toast.LENGTH_SHORT);

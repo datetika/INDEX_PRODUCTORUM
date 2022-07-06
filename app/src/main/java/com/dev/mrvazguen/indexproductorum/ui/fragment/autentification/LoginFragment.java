@@ -16,6 +16,7 @@ import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.repository.FirebaseConection;
 
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentLoginBinding;
+import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -107,6 +108,8 @@ FragmentLoginBinding binding;
 
                                 Navigation.findNavController(v).navigate(
                                         R.id.action_loginFragment_to_listaArticuloFragment);
+                                //TODO assign user id in global args
+                                GlobarArgs.USER_ID= FirebaseConection.getmAuth().getCurrentUser().getUid();
 
                             } else {
                                 // If sign in fails, display a message to the user.
