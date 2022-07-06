@@ -3,28 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:background="@color/Azure"
+    android:layout_height="75dp"
+    android:background="@color/Blue50"
     android:orientation="horizontal"
     android:padding="2dp"
     android:paddingStart="10dp"
     android:tag="">
 
-    <EditText
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="100dp">
+
+        <ImageView
+            android:id="@+id/imgViewIconoUser"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            app:srcCompat="@drawable/avatar" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
         android:id="@+id/tvNombreUsuari"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="70dp"
-        android:background="@color/Azure"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="10dp"
         android:hint="Empty field text ..."
-        android:padding="2dp"
+        android:paddingStart="10dp"
         android:textSize="30dp" />
 
-    <ImageView
-        android:id="@+id/imgViewIconoUser"
-        android:layout_width="60dp"
-        android:layout_height="45dp"
-        android:background="@color/colorAccent"
-        app:srcCompat="@drawable/avatar" />
 </FrameLayout>

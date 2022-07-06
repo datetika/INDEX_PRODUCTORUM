@@ -42,7 +42,7 @@ public class SharedUserAdapter extends RecyclerView.Adapter<SharedUserAdapter.Sh
     }
 
     public  class SharedUserViewHolder extends  RecyclerView.ViewHolder {
-        EditText tvUserName;
+        TextView tvUserName;
 
         public SharedUserViewHolder(@NonNull View itemView) {
             super(itemView);

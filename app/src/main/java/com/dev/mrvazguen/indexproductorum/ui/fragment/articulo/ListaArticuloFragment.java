@@ -1,16 +1,27 @@
 package com.dev.mrvazguen.indexproductorum.ui.fragment.articulo;
 
+import android.icu.util.MeasureUnit;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
 
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
@@ -19,11 +30,13 @@ import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.Arti
 import com.dev.mrvazguen.indexproductorum.data.repository.iTaskNotification;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.ListaArticuloAdapter;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.SharedUserAdapter;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaArticuloFragment extends Fragment {
+public class ListaArticuloFragment extends Fragment  implements   NavigationView.OnNavigationItemSelectedListener {
     ArrayList<Articulo>articulos;
     ArrayList<Usuari>usuaris;
     private RecyclerView recyclerViewArticles;
@@ -34,11 +47,23 @@ public class ListaArticuloFragment extends Fragment {
     public  iTaskNotification<Articulo> iTaskNotification;
 
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
 
+        Toolbar toolbar = (Toolbar)this.getActivity().findViewById(R.id.toolbar);
+        this.getActivity().setActionBar(toolbar);
+
+
+
+        NavigationView mNavigationView = (NavigationView) this.getActivity().findViewById(R.id.navView);
+
+        if (mNavigationView != null) {
+            mNavigationView.setNavigationItemSelectedListener(this);
+        }
 
     }
 
@@ -113,13 +138,39 @@ public class ListaArticuloFragment extends Fragment {
             }
         });
          //endregion
+
+
+
         return viewListaArticle;
     }
 
 
-    ///region
-    public void ListeningTripList(){
 
+    //Menu
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
-    ///enregion
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    ///NavigationView
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.btnLogout){
+            getActivity().finish();
+            Log.d("close_app","closed");
+            return  true;
+        }
+        Log.d("close_app","noDetected");
+        return false;
+    }
+
 }
