@@ -82,7 +82,9 @@
             app:destination="@id/agregarArticuloFragment" />
         <action
             android:id="@+id/action_listaArticuloFragment_to_mostrarArticuloFragment"
-            app:destination="@id/mostrarArticuloFragment" />
+            app:destination="@id/mostrarArticuloFragment">
+
+        </action>
     </fragment>
     <fragment
         android:id="@+id/mostrarArticuloFragment"

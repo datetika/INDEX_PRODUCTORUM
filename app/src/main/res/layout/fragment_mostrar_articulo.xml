@@ -34,15 +34,15 @@
         android:id="@+id/tv_Categoria"
         android:layout_width="277dp"
         android:layout_height="48dp"
-        android:layout_marginStart="66dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="68dp"
         android:background="@drawable/back_border"
         android:contentDescription="@string/google_app_id"
         android:padding="5dp"
         android:popupBackground="@color/AliceBlue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tv_NomArticle"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_NomArticle"
         app:layout_constraintTop_toBottomOf="@+id/tv_NomArticle" />
 
     <TextView
@@ -59,7 +59,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView2" />
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Descripcion"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -99,9 +101,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
         android:layout_marginTop="48dp"
-        android:layout_marginEnd="249dp"
-        android:layout_marginBottom="35dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginEnd="232dp"
+        android:background="@color/Beige"
         android:padding="5dp"
         android:rotation="-33"
         android:rotationX="0"
@@ -110,7 +111,9 @@
         android:textSize="16dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_NomArticle"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.107" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

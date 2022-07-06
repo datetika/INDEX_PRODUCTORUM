@@ -47,15 +47,15 @@ String collectionPath;
     public void append(Articulo articulo, iFirestoreNotification transactionNotification) {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        CollectionReference articulosCR = db
-                .collection(GlobarArgs.GLOBAL_Collection)
-                .document(GlobarArgs.ARTICULO_DOCUMENTO)
-                .collection(GlobarArgs.ARTICULO_COLLECTION);
+        String TAG = "Apend_ARticuloManager";
         //articulosCR.document(articulo.getCategoria().get(0)).set(articulo);
 
-       String TAG = "Apend_ARticuloManager";
-       articulosCR.add(articulo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+         db
+                .collection(GlobarArgs.DB_SHOPING)
+                .document(GlobarArgs.USER_ID)
+                .collection(GlobarArgs.COLLECTION_SHOPING_LIST)
+
+        .add(articulo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
@@ -208,9 +208,12 @@ String collectionPath;
        ///endregion
 
           db
+                  /*
             .collection(GlobarArgs.GLOBAL_Collection)
             .document(GlobarArgs.ARTICULO_DOCUMENTO)
             .collection(GlobarArgs.ARTICULO_COLLECTION)
+                   */
+                  .collection(GlobarArgs.DB_SHOPING+"/"+GlobarArgs.USER_ID+"/"+GlobarArgs.COLLECTION_SHOPING_LIST)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -238,29 +241,52 @@ String collectionPath;
     @Override
     public void readRealtimeListener(iTaskNotification notificationEstat) {
              db
-                .collection(GlobarArgs.GLOBAL_Collection)
-                .document(GlobarArgs.ARTICULO_DOCUMENTO)
-                .collection(GlobarArgs.ARTICULO_COLLECTION)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value,
-                                        @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
 
-                        }
+            .collection(GlobarArgs.DB_SHOPING)
+            .document(GlobarArgs.USER_ID)
+            .collection(GlobarArgs.COLLECTION_SHOPING_LIST)
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value,
+                                    @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
 
-                        List<Articulo> list = new ArrayList<>();
-                        for (QueryDocumentSnapshot document : value) {
-                            Log.d("Firestore_Result", document.getId() + " => " + document.getData());
-                            Articulo articulo = document.toObject(Articulo.class);
-                            list.add(articulo);
-
-                        }
-                        if(list.size()>0)
-                          notificationEstat.OnSucces(list);
-                        else
-                            notificationEstat.OnFail("No hemos podido leer datos (Firestore Realtime) !!!");
                     }
-                });
+
+                    List<Articulo> list = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : value) {
+                        Log.d("Firestore_Result", document.getId() + " => " + document.getData());
+                        Articulo articulo = document.toObject(Articulo.class);
+                        list.add(articulo);
+
+                    }
+                    if(list.size()>0)
+                      notificationEstat.OnSucces(list);
+                    else
+                        notificationEstat.OnFail("No hemos podido leer datos (Firestore Realtime) !!!");
+                }
+            });
     }
+
+    public void checkDbExist(iFirestoreNotification notification, String documentAbsalutPath){
+        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+        DocumentReference docIdRef = rootRef. document(documentAbsalutPath);
+        docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        notification.OnSuccess();
+                    } else {
+                        notification.OnFailure();
+                    }
+                } else {
+                  notification.OnFailure();
+                }
+            }
+        });
+
+    }
+
 }

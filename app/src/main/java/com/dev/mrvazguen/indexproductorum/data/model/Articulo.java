@@ -1,10 +1,13 @@
 package com.dev.mrvazguen.indexproductorum.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.firestore.Exclude;
 
 import java.util.ArrayList;
 
-public class Articulo {
+public class Articulo   {
 
     ///region Fields
     @Exclude
@@ -27,6 +30,8 @@ public class Articulo {
         this.precio = precio;
     }
     ///endregion
+
+
 
     ///region Getter & Setter
     public void setNombre(String nombre) {
@@ -73,5 +78,6 @@ public class Articulo {
                 ", precio=" + precio +
                 '}';
     }
+
 
 }

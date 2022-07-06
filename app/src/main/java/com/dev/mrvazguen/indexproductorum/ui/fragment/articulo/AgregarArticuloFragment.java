@@ -41,7 +41,7 @@ public class AgregarArticuloFragment extends Fragment {
 
     public AgregarArticuloFragment() {
         // Required empty public constructor
-      firestorePersistence = new ArticuloManagerDB(GlobarArgs.ARTICULO_COLLECTION_PATH);
+      firestorePersistence = new ArticuloManagerDB(GlobarArgs.DB_SHOPING);
     }
 
     @Override

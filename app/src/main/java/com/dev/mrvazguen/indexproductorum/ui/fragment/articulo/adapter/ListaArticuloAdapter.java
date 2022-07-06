@@ -1,16 +1,20 @@
 package com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
+import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -39,6 +43,11 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
            @Override
            public void onClick(View v) {
                Log.d("Item_recylerView_Articulo",((TextView)v.findViewById(R.id.tvNombre)).getText().toString());
+               Bundle bundle = new Bundle();
+               String nombreArticulo =((TextView)v.findViewById(R.id.tvNombre)).getText().toString();
+               bundle.putString(GlobarArgs.articuloEnum.nombre.toString(),nombreArticulo);
+               Navigation.findNavController(view).navigate(R.id.mostrarArticuloFragment, bundle);
+
            }
        });
 

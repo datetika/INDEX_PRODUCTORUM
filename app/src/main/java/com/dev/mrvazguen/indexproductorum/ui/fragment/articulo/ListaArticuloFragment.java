@@ -65,6 +65,8 @@ public class ListaArticuloFragment extends Fragment {
             @Override
             public void OnSucces(List<Articulo> lista) {
                 articulos= (ArrayList<Articulo>) lista;
+                if(articulos.size()==0)
+                    articulos.add(new Articulo("EMPTY_FIELD"));
                 adapter= new ListaArticuloAdapter(articulos);
                 recyclerView.setAdapter(adapter);
             }
