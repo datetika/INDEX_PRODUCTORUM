@@ -98,6 +98,14 @@ public class ListaArticuloFragment extends Fragment {
         });
 
 
+        view.findViewById(R.id.btnManageSharedUser).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(
+                        R.id.action_listaArticuloFragment_to_sharedUserFragment);
+            }
+        });
+
         return view;
     }
 

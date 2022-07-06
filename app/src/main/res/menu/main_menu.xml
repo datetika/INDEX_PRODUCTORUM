@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/new_game"
-        android:title="Opcion1"
+        android:title="Shared"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/new_game2"
-        android:title="Opcion2"
+        android:title="Deals"
         app:showAsAction="ifRoom" />
 
 </menu>

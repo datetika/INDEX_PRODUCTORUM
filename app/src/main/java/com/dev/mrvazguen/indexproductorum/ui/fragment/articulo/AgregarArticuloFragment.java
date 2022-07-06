@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.CycleInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -92,9 +94,17 @@ public class AgregarArticuloFragment extends Fragment {
                 ArrayList<String>categoria = new ArrayList<>();
                 categoria.add(binding.spinnerCategoria.getSelectedItem().toString());
 
-                Articulo articulo = new Articulo(binding.editTextTextNombre.getText().toString(),binding.editTextDescripcion.getText().toString(),categoria,Double.parseDouble( binding.edittextPrecio.getText().toString()));
+                String nombre = binding.editTextTextNombre.getText().toString();
+                String descripcion =binding.editTextDescripcion.getText().toString() ;
+                String precio =  binding.edittextPrecio.getText().toString();
+
+                if(precio.isEmpty())
+                    precio="0";
+
+                Articulo articulo = new Articulo(nombre,descripcion,categoria,Double.parseDouble(precio));
+
                if(! validarDatos(articulo)){
-                   Toast.makeText(getActivity().getApplicationContext(),"Campos no son validos !!!",Toast.LENGTH_SHORT);
+                   Toast.makeText(AgregarArticuloFragment.this.getActivity().getApplicationContext(),"Campos no son validos !!!",Toast.LENGTH_SHORT);
                }
                else{
                 // interface to notificate  state of apend method
@@ -124,7 +134,12 @@ public class AgregarArticuloFragment extends Fragment {
 
     private boolean validarDatos(Articulo articulo) {
 
-        return  !articulo.getCategoria().isEmpty()&& !articulo.getDescripcion().isEmpty()& articulo.getPrecio()>0& !articulo.getNombre().isEmpty();
+
+        if(articulo.getNombre().isEmpty()){
+            binding.editTextTextNombre.startAnimation(shakeError());
+        }
+
+        return  !articulo.getNombre().isEmpty() && articulo.getNombre().length()>3;
     }
 
     private void closefragment() {
@@ -138,5 +153,11 @@ public class AgregarArticuloFragment extends Fragment {
 
          */
 
+    }
+    public TranslateAnimation shakeError() {
+        TranslateAnimation shake = new TranslateAnimation(0, 10, 0, 0);
+        shake.setDuration(500);
+        shake.setInterpolator(new CycleInterpolator(7));
+        return shake;
     }
 }

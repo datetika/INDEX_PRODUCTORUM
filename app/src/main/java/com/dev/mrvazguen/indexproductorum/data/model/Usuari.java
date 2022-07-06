@@ -1,14 +1,23 @@
 package com.dev.mrvazguen.indexproductorum.data.model;
 
 import androidx.annotation.AttrRes;
- 
+
+import java.util.ArrayList;
+
 
 public class Usuari {
     String nombre;
     String email;
     String pasword;
+    ArrayList<String>idSharedUserArticle;
+
+    public Usuari(){
+        idSharedUserArticle= new ArrayList<>();
+    }
+
 
     public  Usuari(String email,String userId){
+        this();
         this.nombre = nombre;
         this.email = email;
     }

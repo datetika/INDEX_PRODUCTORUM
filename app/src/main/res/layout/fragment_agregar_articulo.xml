@@ -17,7 +17,7 @@
        android:layout_marginTop="30dp"
        android:layout_marginEnd="70dp"
        android:ems="10"
-       android:hint="Nombre"
+       android:hint="Nombre *"
        android:padding="5dp"
        android:background="@color/Wheat"
        android:inputType="textPersonName"
