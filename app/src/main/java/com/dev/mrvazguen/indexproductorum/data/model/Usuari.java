@@ -16,7 +16,7 @@ public class Usuari {
     }
 
 
-    public  Usuari(String email,String userId){
+    public  Usuari(String email,String nombre){
         this();
         this.nombre = nombre;
         this.email = email;

@@ -7,89 +7,90 @@
     tools:context=".ui.fragment.articulo.ListaArticuloFragment">
 
     <androidx.drawerlayout.widget.DrawerLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/drawerLayut"
-        tools:openDrawer="start"
-        >
-    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background"
-        android:orientation="horizontal">
+        tools:openDrawer="start">
 
-        <TextView
-            android:id="@+id/textView"
-            android:background="@color/colorPrimaryDark"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textSize="35dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Lista articulos"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewItemArticulos"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="540dp"
-            android:background="@color/cardview_light_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            android:layout_height="match_parent"
+            android:background="@drawable/background"
+            android:orientation="horizontal">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButtonAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="-70dp"
-            android:layout_marginTop="610dp"
-            android:clickable="true"
-            android:src="@android:drawable/ic_input_add"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.892"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"
+                android:text="Lista articulos"
+                android:textColor="@color/white"
+                android:textSize="35dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewItemArticulos"
+                android:layout_width="match_parent"
+                android:layout_height="540dp"
+                android:background="@color/cardview_light_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButtonAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-70dp"
+                android:layout_marginTop="610dp"
+                android:clickable="true"
+                android:src="@android:drawable/ic_input_add"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.892"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewSharedUsers"
-            android:layout_width="290dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="104dp"
-            android:background="@color/MintCream"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerViewItemArticulos"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.289"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewSharedUsers"
+                android:layout_width="284dp"
+                android:layout_height="77dp"
+                android:layout_marginTop="104dp"
+                android:background="@color/MintCream"
+                app:layout_constraintBottom_toTopOf="@+id/recyclerViewItemArticulos"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.322"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.1" />
 
-        <Button
-            android:id="@+id/btnManageSharedUser"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_marginStart="298dp"
-            android:layout_marginTop="97dp"
-            android:layout_marginEnd="16dp"
-            android:textColor="@color/white"
-            android:textSize="30dp"
-            android:background="@android:drawable/ic_menu_add"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/recyclerViewSharedUsers"
-            app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/btnManageSharedUser"
+                android:layout_width="57dp"
+                android:layout_height="58dp"
+                android:layout_marginStart="298dp"
+                android:layout_marginTop="116dp"
+                android:layout_marginEnd="16dp"
+                android:background="@android:drawable/ic_menu_add"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/recyclerViewSharedUsers"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-<!--
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navView"
             android:layout_width="wrap_content"
@@ -98,7 +99,7 @@
             android:background="@color/white"
             app:headerLayout="@layout/navigation_header"
             app:menu="@menu/main_menu" />
-            -->
+
     </androidx.drawerlayout.widget.DrawerLayout>
 
 </FrameLayout>

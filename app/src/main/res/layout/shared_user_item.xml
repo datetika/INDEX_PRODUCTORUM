@@ -5,28 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@color/AliceBlue"
+    android:background="@color/Azure"
     android:orientation="horizontal"
     android:padding="2dp"
-    android:maxHeight="80dp"
-    android:tag=""
+    android:paddingStart="10dp"
+    android:tag="">
 
-    android:paddingStart="10dp">
-
-    <TextView
-        android:id="@+id/tvNombre"
+    <EditText
+        android:id="@+id/tvNombreUsuari"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="70dp"
-        android:background="@color/Bisque"
+        android:background="@color/Azure"
         android:hint="Empty field text ..."
         android:padding="2dp"
         android:textSize="30dp" />
 
     <ImageView
-        android:id="@+id/imgViewIcono"
+        android:id="@+id/imgViewIconoUser"
         android:layout_width="60dp"
         android:layout_height="45dp"
-        android:background="@color/Beige"
-        app:srcCompat="@drawable/articulos" />
+        android:background="@color/colorAccent"
+        app:srcCompat="@drawable/avatar" />
 </FrameLayout>
