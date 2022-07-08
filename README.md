@@ -129,7 +129,8 @@
 
  
 ## Firestore database Structure
-![db_structure](https://user-images.githubusercontent.com/33204630/178018858-a8539630-3a37-42bc-afa2-2ef127b6ec77.png)
+ 
+![db_structure](https://user-images.githubusercontent.com/33204630/178019529-00fbafcc-d526-48bd-884d-9edb30a0d2bd.png)
 
 
 ### Extras
