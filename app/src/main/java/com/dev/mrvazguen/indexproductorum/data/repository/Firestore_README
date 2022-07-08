@@ -1,0 +1,129 @@
+
+
+
+public class FirestoreArticulo extends FirebaseDao {
+
+    public final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+    public FirestoreArticulo(String tableName) {
+        super(tableName);
+    }
+
+    public FirestoreArticulo() {
+        super();
+
+    }
+
+
+    @Override
+    public void append(Object articulo, iFirestoreNotification iTransactionNotification) {
+       /* db.collection(GlobarArgs.GLOBAL_Collection)
+                 .document(GlobarArgs.ARTICULO_COLLECTION)
+                 .set(articulo)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        iFirestoreNotification.OnSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        iFirestoreNotification.OnFailure();
+                    }
+                });
+
+        */
+        db.collection(GlobarArgs.GLOBAL_Collection)
+                .document(GlobarArgs.ARTICULO_DOCUMENTO)
+                .collection(GlobarArgs.ARTICULO_COLLECTION)
+                .add(articulo)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        //Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                    iTransactionNotification.OnSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //Log.w(TAG, "Error adding document", e);
+                        iTransactionNotification.OnFailure();
+                    }
+                });
+    }
+
+    @Override
+    public Map<String, Object> read(String nomCollection) {
+            Map<String,Object>map=new HashMap<>();
+            final Articulo[] articulo = new Articulo[1];
+            DocumentReference docRef = db.collection(GlobarArgs.GLOBAL_Collection).document(GlobarArgs.ARTICULO_COLLECTION);
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    articulo[0] = documentSnapshot.toObject(Articulo.class);
+                }
+            });
+            map.put("Articulo", articulo[0]);
+            return  map;
+    }
+    private  void findIn(String collection,String field,boolean include){
+        Query result = db.collection(collection).whereEqualTo(field, include);
+
+    }
+    private  void findList(String collection, String field, String[]listaValores){
+        CollectionReference citiesRef = db.collection(collection);
+        ArrayList<Articulo> articulos = new ArrayList<>();
+       Query results = citiesRef.whereIn(field, Arrays.asList(listaValores)); //Arrays.asList("USA", "Japan"));
+        if (!results.get().isSuccessful()) {
+            for (DocumentSnapshot snapshot : results.get().getResult())
+                articulos.add(snapshot.toObject(Articulo.class));
+        }
+    }
+public void update(String field,Object valor){
+    Map<String, Object> data = new HashMap<>();
+    data.put(field, valor);
+
+    db.collection("cities").document("BJ")
+            .set(data, SetOptions.merge());
+}
+
+    public void readValueField(String nomCollection,String nomField){
+        db.collection(nomCollection)
+                .whereEqualTo(nomField, true)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                //Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+}
+      /*
+            db.collection(tableName).add(articulo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+               @Override
+               public void onSuccess(DocumentReference documentReference) {
+                  Log.e("FirestoreArticulo" ,"Succes");
+               }
+            }).addOnFailureListener(new OnFailureListener() {
+               @Override
+               public void onFailure(@NonNull Exception e) {
+                  Log.e( "FirestoreArticulo","Fails !!!");
+               }
+            });
+
+
+
+      }
+   }
+   s
+       */
