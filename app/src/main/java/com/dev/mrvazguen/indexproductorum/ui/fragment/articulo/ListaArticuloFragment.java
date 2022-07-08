@@ -1,10 +1,15 @@
 package com.dev.mrvazguen.indexproductorum.ui.fragment.articulo;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
+import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
+import androidx.appcompat.view.menu.ListMenuItemView;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -23,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.dev.mrvazguen.indexproductorum.R;
@@ -40,26 +46,30 @@ import java.util.List;
 public class ListaArticuloFragment extends Fragment   {
     ArrayList<Articulo>articulos;
     ArrayList<Usuari>usuaris;
+
     private RecyclerView recyclerViewArticles;
     private RecyclerView recyclerViewSharedUser;
     private  ListaArticuloAdapter adapterArticles;
     private SharedUserAdapter adapterSharedUser;
-    LinearLayoutManager linearLayoutManagerUser;
     public  iTaskNotification<Articulo> iTaskNotification;
-    NavigationView navigationView;
+
+    LinearLayoutManager linearLayoutManagerUser;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-
-    }
+       }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         // return inflater.inflate(R.layout.fragment_lista_articulos, container, false);
+
+
+       // NavigationView navigationView = (NavigationView) getView().findViewById(R.id.nav_view); //getActivity().findViewById(R.id.nav_view);
+        //navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
 
         ///region dades Article
         ArticuloManagerDB articuloManagerDB = new ArticuloManagerDB("Test/prueba");
@@ -138,26 +148,7 @@ public class ListaArticuloFragment extends Fragment   {
         });
          //endregion
 
-        //NavegationView
-        //TODO NavigatationView
-        navigationView = getActivity().findViewById(R.id.navView);
-        /*
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                int id = item.getItemId();
-
-                switch (id){
-                    case R.id.nav_close:
-                        Log.d("NavigationView","Close");
-                        break;
-                }
-                return false;
-            }
-        });
-
-         */
 
         return viewListaArticle;
     }
@@ -172,16 +163,22 @@ public class ListaArticuloFragment extends Fragment   {
        getActivity().getMenuInflater().inflate(R.menu.men_navegation_view, menu);
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.mnu_barra_lateralOption:
-
+            case R.id.mnu_barra_lateralOpen:
                 DrawerLayout drawerLayout=  ((DrawerLayout) (getActivity().findViewById(R.id.drawerLayutListaArticles)));
-               if(! drawerLayout.isOpen())
+                ActionMenuItemView menuItem = (ActionMenuItemView) getActivity().findViewById(R.id.mnu_barra_lateralOpen);
+               if(! drawerLayout.isOpen()){
                    drawerLayout .openDrawer(Gravity.LEFT);
-              else
+                   menuItem.setIcon(ContextCompat.getDrawable(getContext(), android.R.drawable.arrow_up_float));
+               }
+              else{
                    drawerLayout.close();
+                   menuItem.setIcon(ContextCompat.getDrawable(getContext(), android.R.drawable.arrow_down_float));
+
+               }
                 return super.onOptionsItemSelected(item);
             default:
                 return super.onOptionsItemSelected(item);
@@ -189,31 +186,5 @@ public class ListaArticuloFragment extends Fragment   {
     }
 
 
-    /*
-    //implements   NavigationView.OnNavigationItemSelectedListener
-    ///NavigationView
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()){
-            case R.id.nav_close:
-                Log.d("NavigationItemSelected","nav_close");
-                break;
-            case R.id.nav_shared_network:
-                Log.d("NavigationItemSelected","nav_shared_network");
-                break;
-            case R.id.nav_shareUser:
-                Log.d("NavigationItemSelected","nav_shareUser");
-                break;
-
-            case R.id.nav_spends:
-                Log.d("NavigationItemSelected","nav_spends");
-                break;
-        }
-        return false;
-    }
-
-
-     */
 }

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/mnu_barra_lateralOption"
+        android:id="@+id/mnu_barra_lateralOpen"
         android:title="Ajustament de Preferencies"
-        android:icon="@android:drawable/arrow_down_float"
+        android:icon="@android:drawable/arrow_up_float"
         app:showAsAction="ifRoom"  />
 
 </menu>
