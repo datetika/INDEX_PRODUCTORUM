@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,12 +65,12 @@ FragmentLoginBinding binding;
             public void onClick(View v) {
                 Log.e( "btnLogin","btn Login clicked");
 
-                //Desactivamos login
-                //loginUser(v);
+                 loginUser(v);
 
+                 /*
                 Navigation.findNavController(v).navigate(
                         R.id.action_loginFragment_to_listaArticuloFragment);
-
+                */
             }
 
         });
@@ -80,6 +82,23 @@ FragmentLoginBinding binding;
                 Log.e( "btnRegistrar","btn signIN clicked");
                 Navigation.findNavController(v).navigate(
                         R.id.action_loginFragment_to_registrarFragment);
+            }
+        });
+
+        binding.showPassBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(v.getTag()=="hiden")
+                {//Show Password
+                     binding.idEdtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                     v.setTag("show");
+                }
+                else{
+                //Hide Password
+                    binding.idEdtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    v.setTag("hiden");
+                }
             }
         });
         return binding.getRoot();
@@ -109,7 +128,7 @@ FragmentLoginBinding binding;
                                 Navigation.findNavController(v).navigate(
                                         R.id.action_loginFragment_to_listaArticuloFragment);
                                 //TODO assign user id in global args
-                                GlobarArgs.USER_ID= FirebaseConection.getmAuth().getCurrentUser().getUid();
+                                GlobarArgs.USER_ID = FirebaseConection.getmAuth().getCurrentUser().getUid() ;
 
                             } else {
                                 // If sign in fails, display a message to the user.

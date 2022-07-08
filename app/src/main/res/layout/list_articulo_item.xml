@@ -15,8 +15,9 @@
 
     <TextView
         android:id="@+id/tvNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginLeft="70dp"
         android:background="@color/Bisque"
         android:hint="Empty field text ..."

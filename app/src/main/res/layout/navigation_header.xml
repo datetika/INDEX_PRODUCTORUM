@@ -36,13 +36,6 @@
         android:textSize="20dp"
         android:paddingStart="20dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/LightSkyBlue"
-        android:text="Log out" />
+
 
 </LinearLayout>

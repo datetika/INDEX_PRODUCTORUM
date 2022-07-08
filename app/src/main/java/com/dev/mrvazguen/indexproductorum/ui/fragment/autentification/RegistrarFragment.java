@@ -101,6 +101,7 @@ FragmentRegistrarBinding binding;
                             FirebaseConection.settUser(FirebaseConection.getmAuth().getCurrentUser());
                             //TODO assign user id in global args
                             GlobarArgs.USER_ID= FirebaseConection.getmAuth().getCurrentUser().getUid();
+
                             UserManagerDB userManagerDB = new UserManagerDB();
                             String email =FirebaseConection.getmAuth().getCurrentUser().getEmail();
                             Usuari user = new Usuari(email,GlobarArgs.USER_ID);

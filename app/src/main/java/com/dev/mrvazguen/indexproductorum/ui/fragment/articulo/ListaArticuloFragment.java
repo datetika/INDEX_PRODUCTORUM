@@ -1,26 +1,28 @@
 package com.dev.mrvazguen.indexproductorum.ui.fragment.articulo;
 
-import android.icu.util.MeasureUnit;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import android.util.Log;
-import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toolbar;
 
 import com.dev.mrvazguen.indexproductorum.R;
@@ -31,39 +33,25 @@ import com.dev.mrvazguen.indexproductorum.data.repository.iTaskNotification;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.ListaArticuloAdapter;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.SharedUserAdapter;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaArticuloFragment extends Fragment  implements   NavigationView.OnNavigationItemSelectedListener {
+public class ListaArticuloFragment extends Fragment   {
     ArrayList<Articulo>articulos;
     ArrayList<Usuari>usuaris;
     private RecyclerView recyclerViewArticles;
     private RecyclerView recyclerViewSharedUser;
     private  ListaArticuloAdapter adapterArticles;
     private SharedUserAdapter adapterSharedUser;
-
+    LinearLayoutManager linearLayoutManagerUser;
     public  iTaskNotification<Articulo> iTaskNotification;
-
-
-
-
+    NavigationView navigationView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        Toolbar toolbar = (Toolbar)this.getActivity().findViewById(R.id.toolbar);
-        this.getActivity().setActionBar(toolbar);
-
-
-
-        NavigationView mNavigationView = (NavigationView) this.getActivity().findViewById(R.id.navView);
-
-        if (mNavigationView != null) {
-            mNavigationView.setNavigationItemSelectedListener(this);
-        }
 
     }
 
@@ -114,11 +102,22 @@ public class ListaArticuloFragment extends Fragment  implements   NavigationView
 
 
         //TODO recylerview UserSHared
+         linearLayoutManagerUser = new LinearLayoutManager(viewListaArticle.getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+
         recyclerViewSharedUser = viewListaArticle.findViewById(R.id.recyclerViewSharedUsers);
         recyclerViewSharedUser.setHasFixedSize(true);
-        recyclerViewSharedUser.setLayoutManager(new LinearLayoutManager(viewListaArticle.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewSharedUser.setLayoutManager(linearLayoutManagerUser);
         adapterSharedUser= new SharedUserAdapter(usuaris);//Set date
         recyclerViewSharedUser.setAdapter(adapterSharedUser);
+
+        //TODO add pager behavior (Recylerview UserSHared item  page indicator)
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerViewSharedUser);
+
+
+
+
 
 
         viewListaArticle.findViewById(R.id.floatingActionButtonAdd).setOnClickListener(new View.OnClickListener() {
@@ -139,10 +138,30 @@ public class ListaArticuloFragment extends Fragment  implements   NavigationView
         });
          //endregion
 
+        //NavegationView
+        //TODO NavigatationView
+        navigationView = getActivity().findViewById(R.id.navView);
+        /*
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+                int id = item.getItemId();
+
+                switch (id){
+                    case R.id.nav_close:
+                        Log.d("NavigationView","Close");
+                        break;
+                }
+                return false;
+            }
+        });
+
+         */
 
         return viewListaArticle;
     }
+
 
 
 
@@ -150,27 +169,51 @@ public class ListaArticuloFragment extends Fragment  implements   NavigationView
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+       getActivity().getMenuInflater().inflate(R.menu.men_navegation_view, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.mnu_barra_lateralOption:
 
-
-        return super.onOptionsItemSelected(item);
+                DrawerLayout drawerLayout=  ((DrawerLayout) (getActivity().findViewById(R.id.drawerLayutListaArticles)));
+               if(! drawerLayout.isOpen())
+                   drawerLayout .openDrawer(Gravity.LEFT);
+              else
+                   drawerLayout.close();
+                return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
+    /*
+    //implements   NavigationView.OnNavigationItemSelectedListener
     ///NavigationView
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.btnLogout){
-            getActivity().finish();
-            Log.d("close_app","closed");
-            return  true;
+
+        switch (item.getItemId()){
+            case R.id.nav_close:
+                Log.d("NavigationItemSelected","nav_close");
+                break;
+            case R.id.nav_shared_network:
+                Log.d("NavigationItemSelected","nav_shared_network");
+                break;
+            case R.id.nav_shareUser:
+                Log.d("NavigationItemSelected","nav_shareUser");
+                break;
+
+            case R.id.nav_spends:
+                Log.d("NavigationItemSelected","nav_spends");
+                break;
         }
-        Log.d("close_app","noDetected");
         return false;
     }
 
+
+     */
 }

@@ -34,6 +34,7 @@ public class SharedUserAdapter extends RecyclerView.Adapter<SharedUserAdapter.Sh
     public void onBindViewHolder(@NonNull SharedUserViewHolder holder, int position) {
 
         holder.getTextViewUserName().setText(usuaris.get(position).getNombre());
+        holder.getTextViewUserPageIndicator().setText(String.valueOf(position+1)+"/"+String.valueOf(nItems));
     }
 
     @Override
@@ -43,11 +44,13 @@ public class SharedUserAdapter extends RecyclerView.Adapter<SharedUserAdapter.Sh
 
     public  class SharedUserViewHolder extends  RecyclerView.ViewHolder {
         TextView tvUserName;
-
+         TextView tvPageIndicator ;
         public SharedUserViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUserName = itemView.findViewById(R.id.tvNombreUsuari);
+            tvPageIndicator = itemView.findViewById(R.id.tvUSERPageIndicator);
         }
         public TextView getTextViewUserName(){return tvUserName;}
+        public TextView getTextViewUserPageIndicator(){return tvPageIndicator;}
     };
 }

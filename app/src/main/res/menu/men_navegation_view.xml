@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/mnu_barra_lateralOption"
         android:title="Ajustament de Preferencies"
-        android:icon="@android:drawable/ic_menu_manage"
-        android:id="@+id/preferenciasFragment"
+        android:icon="@android:drawable/arrow_down_float"
         app:showAsAction="ifRoom"  />
 
 </menu>

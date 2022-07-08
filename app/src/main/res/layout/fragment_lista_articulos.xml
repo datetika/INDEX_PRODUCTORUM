@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.drawerlayout.widget.DrawerLayout
+    android:id="@+id/drawerLayutListaArticles"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.articulo.ListaArticuloFragment">
+    tools:openDrawer="start"
+    tools:context=".ui.fragment.articulo.ListaArticuloFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar" >
-    </android.widget.Toolbar>
-
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawerLayut"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:openDrawer="start">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -45,7 +34,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewItemArticulos"
                 android:layout_width="match_parent"
-                android:layout_height="540dp"
+                android:layout_height="472dp"
                 android:background="@color/cardview_light_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -103,6 +92,7 @@
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navView"
+            android:layout_marginTop="0dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
@@ -113,4 +103,3 @@
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
-</FrameLayout>

@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/LightGrey"
-     >
+    android:background="@color/LightGrey">
 
 
    <EditText
@@ -16,11 +15,11 @@
        android:layout_marginStart="66dp"
        android:layout_marginTop="30dp"
        android:layout_marginEnd="70dp"
+       android:background="@color/Wheat"
        android:ems="10"
        android:hint="Nombre *"
-       android:padding="5dp"
-       android:background="@color/Wheat"
        android:inputType="textPersonName"
+       android:padding="5dp"
        android:text=""
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent"
@@ -33,11 +32,11 @@
        android:layout_marginStart="66dp"
        android:layout_marginEnd="65dp"
        android:layout_marginBottom="15dp"
+       android:background="@color/Wheat"
        android:ems="10"
        android:hint="Precio"
-       android:padding="5dp"
        android:inputType="numberDecimal|number"
-       android:background="@color/Wheat"
+       android:padding="5dp"
        app:layout_constraintBottom_toTopOf="@+id/btnAgregar"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent" />
@@ -46,16 +45,14 @@
        android:id="@+id/btnAgregar"
        android:layout_width="155dp"
        android:layout_height="60dp"
-       android:layout_marginStart="134dp"
-       android:layout_marginEnd="121dp"
-       android:layout_marginBottom="28dp"
+       android:layout_marginBottom="16dp"
        android:backgroundTint="@color/LightSkyBlue"
        android:text="Agregar"
        android:textSize="22dp"
        app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintHorizontal_bias="1.0"
-       app:layout_constraintStart_toStartOf="parent" />
+       app:layout_constraintEnd_toEndOf="@+id/edittextPrecio"
+       app:layout_constraintHorizontal_bias="0.491"
+       app:layout_constraintStart_toStartOf="@+id/edittextPrecio" />
 
    <EditText
        android:id="@+id/editTextDescripcion"
@@ -64,11 +61,11 @@
        android:layout_marginStart="63dp"
        android:layout_marginEnd="69dp"
        android:layout_marginBottom="24dp"
-       android:ems="10"
-       android:padding="5dp"
        android:background="@color/Wheat"
+       android:ems="10"
        android:hint="Descripcion"
        android:inputType="textPersonName"
+       android:padding="5dp"
        app:layout_constraintBottom_toTopOf="@+id/imageView2"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent" />
@@ -79,9 +76,9 @@
        android:layout_height="48dp"
        android:layout_marginTop="25dp"
        android:layout_marginBottom="27dp"
+       android:background="@drawable/back_border"
        android:contentDescription="@string/google_app_id"
        android:padding="5dp"
-       android:background="@drawable/back_border"
        android:popupBackground="@color/AliceBlue"
        app:layout_constraintBottom_toTopOf="@+id/editTextDescripcion"
        app:layout_constraintEnd_toEndOf="@+id/editTextTextNombre"
@@ -117,10 +114,10 @@
        android:layout_marginStart="63dp"
        android:layout_marginEnd="69dp"
        android:layout_marginBottom="30dp"
+       android:background="@color/AliceBlue"
        app:layout_constraintBottom_toTopOf="@+id/edittextPrecio"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent"
-       android:background="@color/AliceBlue"
        app:srcCompat="@drawable/articulos" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

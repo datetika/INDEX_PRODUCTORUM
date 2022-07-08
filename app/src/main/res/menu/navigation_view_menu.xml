@@ -5,26 +5,26 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/googleg_disabled_color_18"
+            android:id="@+id/nav_close"
+            android:icon="@android:drawable/ic_lock_power_off"
             android:title="close" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_baseline_delete"
-            android:title="delete" />
+            android:id="@+id/nav_spends"
+            android:icon="@android:drawable/ic_input_get"
+            android:title="gastos" />
 
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_shareUser"
                 android:icon="@drawable/avatar"
                 android:title="Shared users" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_baseline_done_all_24"
-                android:title="hecho" />
+                android:id="@+id/nav_shared_network"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="compartir" />
         </menu>
     </item>
 
