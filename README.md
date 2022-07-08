@@ -127,9 +127,11 @@
 ## UI
 ![imagen](https://user-images.githubusercontent.com/33204630/175988029-d7367899-4be3-4967-aa5e-1676cf02d40b.png)
 
-
+ 
 ## Firestore database Structure
-![imagen](https://user-images.githubusercontent.com/33204630/177449100-d3348716-b3c1-4585-9799-c50a9f4a95b0.png)
+ 
+![db_structure](https://user-images.githubusercontent.com/33204630/178019529-00fbafcc-d526-48bd-884d-9edb30a0d2bd.png)
+
 
 ### Extras
 ([Drive link ](https://docs.google.com/document/d/1r5ElcFDWT98yS-NT08viIMSQooUFfycH5JtQUsLnOFA/edit))
