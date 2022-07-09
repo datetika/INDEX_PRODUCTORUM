@@ -182,14 +182,16 @@ public class ListaArticuloFragment extends Fragment{
             case R.id.mnu_barra_lateralOpen:
                 DrawerLayout drawerLayout=  ((DrawerLayout) (getActivity().findViewById(R.id.drawerLayutListaArticles)));
                 ActionMenuItemView menuItem = (ActionMenuItemView) getActivity().findViewById(R.id.mnu_barra_lateralOpen);
-               if(! drawerLayout.isOpen()){
+
+                if(! drawerLayout.isOpen()){
                    drawerLayout .openDrawer(Gravity.LEFT);
                    menuItem.setIcon(ContextCompat.getDrawable(getContext(), android.R.drawable.arrow_up_float));
                }
-              else{
+               else{
                    drawerLayout.close();
                    menuItem.setIcon(ContextCompat.getDrawable(getContext(), android.R.drawable.arrow_down_float));
                }
+
                 return super.onOptionsItemSelected(item);
             default:
                 return super.onOptionsItemSelected(item);
