@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.appcompat.view.menu.ListMenuItemView;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -36,16 +38,22 @@ import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.ArticuloManagerDB;
 import com.dev.mrvazguen.indexproductorum.data.repository.iTaskNotification;
+import com.dev.mrvazguen.indexproductorum.databinding.FragmentAgregarArticuloBinding;
+import com.dev.mrvazguen.indexproductorum.databinding.FragmentLoginBinding;
+import com.dev.mrvazguen.indexproductorum.databinding.ListArticuloItemBinding;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.ListaArticuloAdapter;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.SharedUserAdapter;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaArticuloFragment extends Fragment   {
+public class ListaArticuloFragment extends Fragment{
     ArrayList<Articulo>articulos;
     ArrayList<Usuari>usuaris;
+    NavigationView navigationView;
 
     private RecyclerView recyclerViewArticles;
     private RecyclerView recyclerViewSharedUser;
@@ -53,13 +61,15 @@ public class ListaArticuloFragment extends Fragment   {
     private SharedUserAdapter adapterSharedUser;
     public  iTaskNotification<Articulo> iTaskNotification;
 
+    @NonNull
+    ViewDataBinding binding;
     LinearLayoutManager linearLayoutManagerUser;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-       }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,13 +77,8 @@ public class ListaArticuloFragment extends Fragment   {
         // Inflate the layout for this fragment
         // return inflater.inflate(R.layout.fragment_lista_articulos, container, false);
 
-
-       // NavigationView navigationView = (NavigationView) getView().findViewById(R.id.nav_view); //getActivity().findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
-
         ///region dades Article
         ArticuloManagerDB articuloManagerDB = new ArticuloManagerDB("Test/prueba");
-
         View viewListaArticle = inflater.inflate(R.layout.fragment_lista_articulos, container, false);
 
         articulos = new ArrayList<>();
@@ -102,7 +107,6 @@ public class ListaArticuloFragment extends Fragment   {
         };
 
         articuloManagerDB.readRealtimeListener(iTaskNotification);
-
         Log.e("ListaArticulosFragment","Array lista articulos size: " + articulos.size());
 
         // Add the following lines to create RecyclerView
@@ -110,10 +114,8 @@ public class ListaArticuloFragment extends Fragment   {
         recyclerViewArticles.setHasFixedSize(true);
         recyclerViewArticles.setLayoutManager(new LinearLayoutManager(viewListaArticle.getContext()));
 
-
         //TODO recylerview UserSHared
          linearLayoutManagerUser = new LinearLayoutManager(viewListaArticle.getContext(), LinearLayoutManager.HORIZONTAL, false);
-
 
         recyclerViewSharedUser = viewListaArticle.findViewById(R.id.recyclerViewSharedUsers);
         recyclerViewSharedUser.setHasFixedSize(true);
@@ -124,10 +126,6 @@ public class ListaArticuloFragment extends Fragment   {
         //TODO add pager behavior (Recylerview UserSHared item  page indicator)
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(recyclerViewSharedUser);
-
-
-
-
 
 
         viewListaArticle.findViewById(R.id.floatingActionButtonAdd).setOnClickListener(new View.OnClickListener() {
@@ -148,13 +146,27 @@ public class ListaArticuloFragment extends Fragment   {
         });
          //endregion
 
-
+        navigationView = viewListaArticle.findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.nav_close:
+                        Log.d("NavigationView","close");
+                        getActivity().finish();
+                        FirebaseAuth.getInstance().signOut();
+                        break;
+                    case R.id.nav_shareUser:
+                        Navigation.findNavController(viewListaArticle).navigate(
+                                R.id.action_listaArticuloFragment_to_sharedUserFragment);
+                        break;
+                }
+                return false;
+            }
+        });
 
         return viewListaArticle;
     }
-
-
-
 
     //Menu
     @Override
@@ -177,14 +189,10 @@ public class ListaArticuloFragment extends Fragment   {
               else{
                    drawerLayout.close();
                    menuItem.setIcon(ContextCompat.getDrawable(getContext(), android.R.drawable.arrow_down_float));
-
                }
                 return super.onOptionsItemSelected(item);
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-
 }
