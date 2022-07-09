@@ -6,7 +6,7 @@
     <item
         android:id="@+id/mnu_barra_lateralOpen"
         android:title="Ajustament de Preferencies"
-        android:icon="@android:drawable/arrow_up_float"
+        android:icon="@android:drawable/arrow_down_float"
         app:showAsAction="ifRoom"  />
 
 </menu>
