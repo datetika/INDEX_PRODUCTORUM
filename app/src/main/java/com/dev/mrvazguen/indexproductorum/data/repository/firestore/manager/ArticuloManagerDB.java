@@ -266,6 +266,11 @@ String collectionPath;
             });
     }
 
+    @Override
+    public boolean deleteDocument(String nomDocument) {
+        return false;
+    }
+
     public void checkDbExist(iFirestoreNotification notification, String documentAbsalutPath){
         FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
         DocumentReference docIdRef = rootRef. document(documentAbsalutPath);

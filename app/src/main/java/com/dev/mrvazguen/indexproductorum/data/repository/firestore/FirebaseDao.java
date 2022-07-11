@@ -34,5 +34,5 @@ public abstract class FirebaseDao <E> {
     public abstract  void   read( iTaskNotification notificationEstat) ;
 
     public abstract  void readRealtimeListener( iTaskNotification notificationEstat);
-
+    public abstract  boolean deleteDocument(String nomDocument);
 }

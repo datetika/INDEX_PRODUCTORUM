@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.mrvazguen.indexproductorum.R;
@@ -38,6 +39,9 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
         nItems = articulos.size();
    }
 
+
+
+   //TODO recylerview  onclick show in new windows the result
     @NonNull
     @Override
     public LlistarArticuloViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -70,11 +74,13 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
         return new LlistarArticuloViewHolder(view);
     }
 
+
+
     @Override
     public void onBindViewHolder(@NonNull LlistarArticuloViewHolder holder, int position) {
         //holder.getView().setText( articulo.getNombre());
-        holder.getTextView().setText(articulos.get(position).getNombre());
-        holder.getTextView().setTag(String.valueOf( position));//We put the position in the tag
+            holder.getTextView().setText(articulos.get(position).getNombre());
+            holder.getTextView().setTag(String.valueOf( position));//We put the position in the tag
     }
 
     @Override
@@ -82,6 +88,12 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
         return nItems;
     }
 
+    public void deteleItem(int removedIndex) {
+       //Firebase delete
+
+         articulos.remove(removedIndex);
+         this.notifyItemRemoved(removedIndex);
+    }
 
     public  class LlistarArticuloViewHolder extends  RecyclerView.ViewHolder {
         TextView title;

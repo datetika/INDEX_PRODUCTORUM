@@ -15,11 +15,13 @@ import androidx.databinding.ViewDataBinding;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,6 +30,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -114,6 +118,26 @@ public class ListaArticuloFragment extends Fragment{
         recyclerViewArticles.setHasFixedSize(true);
         recyclerViewArticles.setLayoutManager(new LinearLayoutManager(viewListaArticle.getContext()));
 
+        //TODO recylerview swipe to  delete item
+       new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT| ItemTouchHelper.RIGHT) {
+           @Override
+           public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+               return false;
+           }
+
+           @Override
+           public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+               int position = viewHolder.getBindingAdapterPosition();
+               if(articuloManagerDB.deleteDocument(""))
+                    adapterArticles.deteleItem(viewHolder.getBindingAdapterPosition());
+               Log.d("recylerviewArticules","onSwiped");
+
+           }
+       }).attachToRecyclerView(recyclerViewArticles);
+
+
+
+
         //TODO recylerview UserSHared
          linearLayoutManagerUser = new LinearLayoutManager(viewListaArticle.getContext(), LinearLayoutManager.HORIZONTAL, false);
 
@@ -167,6 +191,11 @@ public class ListaArticuloFragment extends Fragment{
 
         return viewListaArticle;
     }
+
+
+    //TODO recylerview ELIMINAR
+
+
 
     //Menu
     @Override
