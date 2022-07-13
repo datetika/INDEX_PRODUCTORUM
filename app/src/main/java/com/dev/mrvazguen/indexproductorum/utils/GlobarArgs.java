@@ -8,22 +8,23 @@ import java.net.PortUnreachableException;
 public class GlobarArgs {
 
     public enum  articuloEnum {id,nombre,descripcion,categoria,precio}
+    public  enum  userEnum{};
 
     public   static final  String  DB_SHOPING="shoping";
-    public  static final  String  DB_DEALS="deals";
-    public  static final  String  DB_USERS="users";
-    public  static final  String  DOCUMENT_USER="user1";
-
     public  static  String  USER_ID="userID";//document
-
     public  static final String COLLECTION_SHOPING_LIST="shopingList";
-
     public  static  String DOCUMENT_ARTICLE="article1";
 
-
+    //DB LISTA COMPRA
     public  static  final  String LISTA_COMPRA_ABSOLUT_PATH=DB_SHOPING+"/"+USER_ID+"/"+COLLECTION_SHOPING_LIST+"/"+DOCUMENT_ARTICLE;
+
+    //DB USERS
+    public  static  final  String DB_USER="usuarios";
+    public static String CORREO_USUARIO="random";
+    public  static  final String DB_USERS = DB_USER+"/"+ CORREO_USUARIO;
+    public static  String NOM_USUARI_ACTUAL="DEFAULT_USER";
+    //DB OFERTA
+    public  static final  String  DB_DEALS="deals";
     public  static  final  String LISTA_OFERTA_ABSOLUT_PATH=DB_DEALS+"/"+DOCUMENT_ARTICLE;
-
-
 
 }

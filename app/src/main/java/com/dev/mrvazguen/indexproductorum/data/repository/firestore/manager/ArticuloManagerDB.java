@@ -26,8 +26,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,21 +57,22 @@ String collectionPath;
                 .document(GlobarArgs.USER_ID)
                 .collection(GlobarArgs.COLLECTION_SHOPING_LIST)
 
-        .add(articulo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
-            transactionNotification.OnSuccess();
+                .add(articulo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG,"hemos podido inserir los datos");
+                        transactionNotification.OnSuccess();
 
-            }
-        })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Error adding document", e);
-                transactionNotification.OnFailure();
-            }
-        });
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                        transactionNotification.OnFailure();
+                    }
+                });
     }
     @Override
     public void readLiveDate(ArrayList<Articulo> list, Object tipoClase) {
@@ -267,8 +270,29 @@ String collectionPath;
     }
 
     @Override
-    public boolean deleteDocument(String nomDocument) {
-        return false;
+    public boolean deleteDocument(String nomCollectionAbsolutPath, String documentFieldName) {
+
+
+        db.collection(nomCollectionAbsolutPath)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Articulo articulo= document.toObject(Articulo.class);
+                                if(articulo.getNombre().compareTo(documentFieldName)==0){
+                                    db.document(nomCollectionAbsolutPath+"/"+document.getId()).delete();
+                                    break;//una cerca de la lista de documentos
+                                }
+                            }
+                        } else {
+                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+        return true;
     }
 
     public void checkDbExist(iFirestoreNotification notification, String documentAbsalutPath){

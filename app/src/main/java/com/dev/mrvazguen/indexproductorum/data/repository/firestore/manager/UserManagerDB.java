@@ -6,6 +6,7 @@ import com.dev.mrvazguen.indexproductorum.data.model.User;
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
 import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -51,12 +52,22 @@ public class UserManagerDB   {
     /**
      * Add user in DB
      * @param user
-     * @param idUsuari
      */
-    public void addUser(Usuari user, String idUsuari ){
+    public void addUser(Usuari user ){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+         User newUser = new User("Vazguen","usuari@gmail.com","id");
 
-        db.collection(GlobarArgs.DB_USERS).document(user.getEmail()).set(user);
+        db.collection("users").document("usuari@gmail.com").set(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 
     //DB access permission

@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.w3c.dom.Text;
 
@@ -27,7 +29,8 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
     private Articulo articulo;
     private ArrayList <Articulo> articulos;
     private  int nItems=0;
-
+    private  String nomUsuariActual;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     /*
     public ListaArticuloAdapter(String  dato) {
         articulo = new Articulo(dato);
@@ -37,6 +40,8 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
    public  ListaArticuloAdapter(ArrayList <Articulo> articulos){
         this.articulos =articulos;
         nItems = articulos.size();
+
+        nomUsuariActual = GlobarArgs.NOM_USUARI_ACTUAL;
    }
 
 
@@ -90,9 +95,10 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
 
     public void deteleItem(int removedIndex) {
        //Firebase delete
-
          articulos.remove(removedIndex);
          this.notifyItemRemoved(removedIndex);
+         nItems = articulos.size();//update size
+
     }
 
     public  class LlistarArticuloViewHolder extends  RecyclerView.ViewHolder {

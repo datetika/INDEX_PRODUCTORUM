@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dev.mrvazguen.indexproductorum.R;
@@ -101,6 +102,8 @@ FragmentLoginBinding binding;
                 }
             }
         });
+
+
         return binding.getRoot();
         /*
         binding = FragmentLoginBinding.inflate(inflater);
@@ -129,6 +132,7 @@ FragmentLoginBinding binding;
                                         R.id.action_loginFragment_to_listaArticuloFragment);
                                 //TODO assign user id in global args
                                 GlobarArgs.USER_ID = FirebaseConection.getmAuth().getCurrentUser().getUid() ;
+                                GlobarArgs.CORREO_USUARIO = FirebaseConection.getUser().getEmail();
 
                             } else {
                                 // If sign in fails, display a message to the user.

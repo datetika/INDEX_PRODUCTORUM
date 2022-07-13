@@ -23,7 +23,7 @@ public class Usuari {
     }
 
     public  Usuari(String nombre,String email,String pasword) {
-        this(nombre,email);
+        this(email,nombre);
         this.pasword= pasword;
 
     }

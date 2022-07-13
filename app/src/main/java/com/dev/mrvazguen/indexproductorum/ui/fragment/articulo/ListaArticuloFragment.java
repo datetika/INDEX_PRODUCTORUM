@@ -34,6 +34,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -47,6 +48,7 @@ import com.dev.mrvazguen.indexproductorum.databinding.FragmentLoginBinding;
 import com.dev.mrvazguen.indexproductorum.databinding.ListArticuloItemBinding;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.ListaArticuloAdapter;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.SharedUserAdapter;
+import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -68,6 +70,9 @@ public class ListaArticuloFragment extends Fragment{
     @NonNull
     ViewDataBinding binding;
     LinearLayoutManager linearLayoutManagerUser;
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +133,7 @@ public class ListaArticuloFragment extends Fragment{
            @Override
            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                int position = viewHolder.getBindingAdapterPosition();
-               if(articuloManagerDB.deleteDocument(""))
+               if(articuloManagerDB.deleteDocument(GlobarArgs.DB_SHOPING+"/"+GlobarArgs.USER_ID+"/"+GlobarArgs.COLLECTION_SHOPING_LIST,articulos.get(position).getNombre()))
                     adapterArticles.deteleItem(viewHolder.getBindingAdapterPosition());
                Log.d("recylerviewArticules","onSwiped");
 
@@ -188,6 +193,11 @@ public class ListaArticuloFragment extends Fragment{
                 return false;
             }
         });
+
+
+
+
+
 
         return viewListaArticle;
     }
