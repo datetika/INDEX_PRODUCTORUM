@@ -11,14 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
+import com.dev.mrvazguen.indexproductorum.data.model.SharedUser;
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 
 public class SharedUserAdapter extends RecyclerView.Adapter<SharedUserAdapter.SharedUserViewHolder>{
-    private final ArrayList<Usuari> usuaris;
-      private  int nItems=0;
-    public  SharedUserAdapter(ArrayList<Usuari> usuaris){
+    private  ArrayList<SharedUser> usuaris;
+    private  int nItems=0;
+    public  SharedUserAdapter(ArrayList<SharedUser> usuaris){
         this.usuaris =usuaris;
         nItems = usuaris.size();
     }
@@ -26,15 +28,19 @@ public class SharedUserAdapter extends RecyclerView.Adapter<SharedUserAdapter.Sh
     @Override
     public SharedUserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.shared_user_item,parent,false);
-
         return new SharedUserViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SharedUserViewHolder holder, int position) {
-
-        holder.getTextViewUserName().setText(usuaris.get(position).getNombre());
-        holder.getTextViewUserPageIndicator().setText(String.valueOf(position+1)+"/"+String.valueOf(nItems));
+        if(nItems>0){
+          holder.getTextViewUserName().setText(usuaris.get(position).getNombre());
+          holder.getTextViewUserPageIndicator().setText(String.valueOf(position+1)+"/"+String.valueOf(nItems));
+        }
+        else{
+            holder.getTextViewUserName().setText("Empty");
+            holder.getTextViewUserPageIndicator().setText(String.valueOf(1)+"/"+String.valueOf(1));
+        }
     }
 
     @Override
@@ -43,7 +49,7 @@ public class SharedUserAdapter extends RecyclerView.Adapter<SharedUserAdapter.Sh
     }
 
     public  class SharedUserViewHolder extends  RecyclerView.ViewHolder {
-        TextView tvUserName;
+         TextView tvUserName;
          TextView tvPageIndicator ;
         public SharedUserViewHolder(@NonNull View itemView) {
             super(itemView);

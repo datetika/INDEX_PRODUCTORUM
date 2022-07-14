@@ -40,13 +40,13 @@ import android.widget.Toolbar;
 
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
+import com.dev.mrvazguen.indexproductorum.data.model.SharedUser;
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.ArticuloManagerDB;
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.UserManagerDB;
 import com.dev.mrvazguen.indexproductorum.data.repository.iTaskNotification;
-import com.dev.mrvazguen.indexproductorum.databinding.FragmentAgregarArticuloBinding;
+import com.dev.mrvazguen.indexproductorum.databinding.FragmentListaArticulosBinding;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentLoginBinding;
-import com.dev.mrvazguen.indexproductorum.databinding.ListArticuloItemBinding;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.ListaArticuloAdapter;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.SharedUserAdapter;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
@@ -54,27 +54,24 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ListaArticuloFragment extends Fragment{
-    ArrayList<Articulo>articulos;
-    ArrayList<Usuari>usuaris;
-    NavigationView navigationView;
-    View headerView;
-    View viewListaArticle;
-    TextView navUsername;
-    private RecyclerView recyclerViewArticles;
-    private RecyclerView recyclerViewSharedUser;
+    private ArrayList<Articulo>articulos;
+    private ArrayList<Usuari>usuaris;
+    private NavigationView navigationView;
+    private View headerView;
+    private TextView navUsername;
+
     private  ListaArticuloAdapter adapterArticles;
     private SharedUserAdapter adapterSharedUser;
-    public  iTaskNotification<Articulo> iTaskNotification;
+    public com.dev.mrvazguen.indexproductorum.data.repository.iTaskNotification<Articulo> iTaskNotification;
 
-    @NonNull
-    ViewDataBinding binding;
-    LinearLayoutManager linearLayoutManagerUser;
-
+    private  FragmentListaArticulosBinding binding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,13 +86,48 @@ public class ListaArticuloFragment extends Fragment{
         // Inflate the layout for this fragment
         // return inflater.inflate(R.layout.fragment_lista_articulos, container, false);
 
+        View v = inflater.inflate(R.layout.fragment_lista_articulos, container, false);
+        binding = FragmentListaArticulosBinding.bind(v);
+
+        //inicializacion de variables usuaris, articulos
+        usuaris = new ArrayList<>();
+        articulos = new ArrayList<>();
+
         ArticuloManagerDB articuloManagerDB = new ArticuloManagerDB("Test/prueba");
-        viewListaArticle = inflater.inflate(R.layout.fragment_lista_articulos, container, false);
+        UserManagerDB userManagerDB = new UserManagerDB();
+
+
+        ///region  //TODO Shared USER recylerview UserSHared
+
+        iTaskNotification<SharedUser> iTaskNotificationUsuar = new iTaskNotification<SharedUser>() {
+
+            @Override
+            public void OnSucces(List<SharedUser> lista) {
+                ArrayList<SharedUser>items = new ArrayList<>();
+                items =(ArrayList<SharedUser>) lista;
+                if(items.size()!=0)
+                    items.add(new SharedUser("Default"));
+
+                binding.recViewSharedUser.setAdapter(new SharedUserAdapter(items));//Set date
+            }
+
+            @Override
+            public void OnFail(String msg) {
+
+            }
+        };
+        userManagerDB.readRealtimeListener(iTaskNotificationUsuar);
+
+
+        //TODO add pager behavior (Recylerview UserSHared item  page indicator)
+        //PagerSnapHelper snapHelper = new PagerSnapHelper();
+        //snapHelper.attachToRecyclerView(recyclerViewSharedUser);
+        ///endregion
+
 
         ///region //TODO RECYLERVIEW lista Articulos
 
-        //Inicializacion de variables
-        articulos = new ArrayList<>();
+
         //Cargar los datos de FirestoreArticulo
         iTaskNotification = new iTaskNotification<Articulo>(){
             @Override
@@ -104,25 +136,30 @@ public class ListaArticuloFragment extends Fragment{
                 if(articulos.size()==0)
                     articulos.add(new Articulo("EMPTY_FIELD"));
                 adapterArticles= new ListaArticuloAdapter(articulos);
-                recyclerViewArticles.setAdapter(adapterArticles);
+                binding.recyclerViewItemArticulos.setAdapter(adapterArticles);
             }
 
             @Override
             public void OnFail(String msg) {
-               Log.d("ArticuloManagerDB",msg);
-                articulos.add(new Articulo("Empty_DATE"));
+                articulos.add(new Articulo("EMPTY_FIELD"));
+                Log.d("ArticuloManagerDB",msg);
                 adapterArticles= new ListaArticuloAdapter(articulos);
-                recyclerViewArticles.setAdapter(adapterArticles);
+                binding.recyclerViewItemArticulos.setAdapter(adapterArticles);
             }
         };
 
         articuloManagerDB.readRealtimeListener(iTaskNotification);
         Log.e("ListaArticulosFragment","Array lista articulos size: " + articulos.size());
 
-        // Add the following lines to create RecyclerView
-        recyclerViewArticles = viewListaArticle.findViewById(R.id.recyclerViewItemArticulos);
-        recyclerViewArticles.setHasFixedSize(true);
-        recyclerViewArticles.setLayoutManager(new LinearLayoutManager(viewListaArticle.getContext()));
+
+        //ADD date to recylerview Shared user
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        binding.recViewSharedUser.setHasFixedSize(true);
+        binding.recViewSharedUser.setLayoutManager(layoutManager);
+
+        //  Add recylerview Items shoping list
+        binding.recyclerViewItemArticulos.setHasFixedSize(true);
+        binding.recyclerViewItemArticulos.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
 
         //TODO recylerview shoping list swipe to  delete item
        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT| ItemTouchHelper.RIGHT) {
@@ -140,13 +177,14 @@ public class ListaArticuloFragment extends Fragment{
                Log.d("recylerviewArticules","onSwiped");
 
            }
-       }).attachToRecyclerView(recyclerViewArticles);
+       }).attachToRecyclerView(binding.recyclerViewItemArticulos);
        ///endregion
 
 
 
+
         ///region buttons listener
-        viewListaArticle.findViewById(R.id.floatingActionButtonAdd).setOnClickListener(new View.OnClickListener() {
+        binding.floatingActionButtonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(
@@ -155,7 +193,7 @@ public class ListaArticuloFragment extends Fragment{
         });
 
 
-        viewListaArticle.findViewById(R.id.btnManageSharedUser).setOnClickListener(new View.OnClickListener() {
+        binding.btnManageSharedUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(
@@ -167,7 +205,8 @@ public class ListaArticuloFragment extends Fragment{
          //endregion
 
         ///region NavigationView
-        navigationView = viewListaArticle.findViewById(R.id.nav_view);
+
+        navigationView = binding.getRoot().findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -178,12 +217,12 @@ public class ListaArticuloFragment extends Fragment{
                         FirebaseAuth.getInstance().signOut();
                         break;
                     case R.id.nav_shareUser:
-                        Navigation.findNavController(viewListaArticle).navigate(
+                        Navigation.findNavController(binding.getRoot()).navigate(
                                 R.id.action_listaArticuloFragment_to_sharedUserFragment);
                         break;
 
                     case  R.id.nav_Descuento:
-                        Navigation.findNavController(viewListaArticle).navigate(
+                        Navigation.findNavController(binding.getRoot()).navigate(
                                 R.id.action_listaArticuloFragment_to_descuentoProductoFragment);
                         break;
                 }
@@ -198,29 +237,9 @@ public class ListaArticuloFragment extends Fragment{
         ///endregion
 
 
-        ///region  //TODO Shared USER recylerview UserSHared
-        //inicializacion de variables
-        usuaris = new ArrayList<>();
-        usuaris.add(new Usuari("test@gmail.com","Fulanito"));
-        usuaris.add(new Usuari("hola@gmail.com","Menganito"));
 
 
-        linearLayoutManagerUser = new LinearLayoutManager(viewListaArticle.getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewSharedUser = viewListaArticle.findViewById(R.id.recyclerViewSharedUsers);
-        recyclerViewSharedUser.setLayoutManager(linearLayoutManagerUser);
-
-        adapterSharedUser= new SharedUserAdapter(usuaris);//Set date
-
-        recyclerViewSharedUser.setHasFixedSize(true);
-        recyclerViewSharedUser.setAdapter(adapterSharedUser);
-
-        //TODO add pager behavior (Recylerview UserSHared item  page indicator)
-        PagerSnapHelper snapHelper = new PagerSnapHelper();
-        snapHelper.attachToRecyclerView(recyclerViewSharedUser);
-
-        ///endregion
-
-        return viewListaArticle;
+        return binding.getRoot();
     }
 
     //Menu

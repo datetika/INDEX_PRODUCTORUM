@@ -15,7 +15,6 @@
         android:layout_marginStart="67dp"
         android:layout_marginEnd="70dp"
         android:background="@color/Wheat"
-        android:cursorVisible="true"
         android:ems="10"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -50,7 +49,6 @@
         android:layout_width="279dp"
         android:layout_height="58dp"
         android:layout_marginEnd="65dp"
-        android:layout_marginBottom="96dp"
         android:background="@color/Wheat"
         android:ems="10"
         android:hint="Precio"
@@ -58,10 +56,10 @@
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.015"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Descripcion"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.857" />
 
     <ImageView
         android:id="@+id/imageView2"

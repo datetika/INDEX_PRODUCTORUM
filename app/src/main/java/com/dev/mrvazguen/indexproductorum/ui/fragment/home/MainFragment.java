@@ -44,11 +44,6 @@ public class MainFragment extends Fragment {
         Log.e("Activity","Main Fragment");
       //binding =   FragmentMainBinding.inflate(this.getLayoutInflater());
 
-
-
-
-
-
     }
 
 

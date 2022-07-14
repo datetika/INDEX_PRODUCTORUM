@@ -67,7 +67,6 @@ public class SharedUserFragment extends Fragment {
                             @Override
                             public boolean OnSuccess() {
                                 Log.d("USER_TABLE","HEMOS encontrado al usuario");
-                                Toast.makeText(getActivity(),"Hemos encontrado al usuario : " + email,Toast.LENGTH_SHORT);
                                 return true;
                             }
 

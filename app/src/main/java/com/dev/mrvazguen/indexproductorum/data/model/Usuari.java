@@ -2,6 +2,8 @@ package com.dev.mrvazguen.indexproductorum.data.model;
 
 import androidx.annotation.AttrRes;
 
+import com.google.firebase.firestore.Exclude;
+
 import java.util.ArrayList;
 
 
@@ -9,12 +11,15 @@ public class Usuari {
     String nombre;
     String email;
     String pasword;
-    ArrayList<String>idSharedUserArticle;
+    ArrayList<String>sharedUserList;
 
     public Usuari(){
-        idSharedUserArticle= new ArrayList<>();
+        sharedUserList= new ArrayList<>();
     }
-
+    public Usuari(String nombre){
+        this();
+        sharedUserList= new ArrayList<>();
+    }
 
     public  Usuari(String email,String nombre){
         this();

@@ -24,12 +24,15 @@ import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Pattern;
 
 
 public class LoginFragment extends Fragment    {
 FragmentLoginBinding binding;
+
+FirebaseAuth mAut;
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -55,7 +58,7 @@ FragmentLoginBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        mAut = FirebaseAuth.getInstance();
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         binding = FragmentLoginBinding.bind(v);
         // Inflate the layout for this fragment3
@@ -121,7 +124,9 @@ FragmentLoginBinding binding;
 
         boolean  login=false;
         if(validarFieldLogin(userMail,password) ) {
-            FirebaseConection.getmAuth().signInWithEmailAndPassword(userMail, password)
+            mAut = FirebaseConection.getmAuth();
+
+            mAut.signInWithEmailAndPassword(userMail, password)
                     .addOnCompleteListener(  this.getActivity(), new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -132,12 +137,12 @@ FragmentLoginBinding binding;
                                 UserManagerDB managerDB= new UserManagerDB();
                                 managerDB.findUserByEmail(userMail);
                                 managerDB.close();
-
-                                GlobarArgs.USER_ID = FirebaseConection.getmAuth().getCurrentUser().getUid() ;
-                                GlobarArgs.CORREO_USUARIO = FirebaseConection.getUser().getEmail();
+                                //TODO assign user id in global args
+                                GlobarArgs.USER_ID = mAut.getCurrentUser().getUid() ;
+                                GlobarArgs.CORREO_USUARIO = mAut.getCurrentUser().getEmail();
                                 Navigation.findNavController(v).navigate(
                                         R.id.action_loginFragment_to_listaArticuloFragment);
-                                //TODO assign user id in global args
+
 
 
 

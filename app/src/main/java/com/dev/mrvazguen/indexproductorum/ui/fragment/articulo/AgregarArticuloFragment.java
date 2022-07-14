@@ -103,10 +103,9 @@ public class AgregarArticuloFragment extends Fragment {
                     @Override
                     public boolean OnSuccess() {
                        // Log.e(TAG,"Agregado articulo con exito");
-
                         //Navega al fragment anterior
                         Navigation.findNavController(v).navigate(R.id.listaArticuloFragment);
-                        return true;
+                         return  true;
                     }
 
                     @Override

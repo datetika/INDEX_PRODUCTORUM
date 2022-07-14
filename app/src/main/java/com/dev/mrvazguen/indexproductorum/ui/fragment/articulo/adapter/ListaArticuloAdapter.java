@@ -25,32 +25,33 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/*
+@autor : PROYECTO FINAL ANDROID MOBILE DEVELOPER
+ */
+
 public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdapter.LlistarArticuloViewHolder> {
     private Articulo articulo;
     private ArrayList <Articulo> articulos;
     private  int nItems=0;
-    private  String nomUsuariActual;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     /*
     public ListaArticuloAdapter(String  dato) {
         articulo = new Articulo(dato);
         nItems++;
     }
-*/
+   */
    public  ListaArticuloAdapter(ArrayList <Articulo> articulos){
         this.articulos =articulos;
         nItems = articulos.size();
-
-        nomUsuariActual = GlobarArgs.NOM_USUARI_ACTUAL;
    }
-
-
 
    //TODO recylerview  onclick show in new windows the result
     @NonNull
     @Override
     public LlistarArticuloViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_articulo_item,parent,false);
+
+       ///region TODO Article onClick event show the detail of article
+       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_articulo_item,parent,false);
        view.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -75,7 +76,7 @@ public class ListaArticuloAdapter extends RecyclerView.Adapter<ListaArticuloAdap
 
            }
        });
-
+       ///endregion
         return new LlistarArticuloViewHolder(view);
     }
 

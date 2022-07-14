@@ -2,8 +2,12 @@ package com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager;
 
 import androidx.annotation.NonNull;
 
+import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
+import com.dev.mrvazguen.indexproductorum.data.model.SharedUser;
+import com.dev.mrvazguen.indexproductorum.data.model.User;
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
 import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
+import com.dev.mrvazguen.indexproductorum.data.repository.iTaskNotification;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -15,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -105,7 +110,6 @@ public class UserManagerDB   {
 
     public  void close(){
 
-
     }
 
     public boolean existUserInTableUser(String userEmail,iFirestoreNotification notification ) {
@@ -130,5 +134,11 @@ public class UserManagerDB   {
         });
 
         return false;
+    }
+
+    public void readRealtimeListener(iTaskNotification<SharedUser> iTaskNotification) {
+        ArrayList<SharedUser> usuariArrayList = new ArrayList<>();
+        usuariArrayList.add(new SharedUser("Fulanito"));
+        iTaskNotification.OnSucces(usuariArrayList);
     }
 }
