@@ -108,7 +108,27 @@ public class UserManagerDB   {
 
     }
 
-    public boolean existUserInTableUser(String userEmail) {
+    public boolean existUserInTableUser(String userEmail,iFirestoreNotification notification ) {
+        db= FirebaseFirestore.getInstance();
+        CollectionReference colREF = db.collection(GlobarArgs.DB_USER_COLLECTION);
+        colREF.whereEqualTo("email",userEmail).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                Usuari usuari = new Usuari();
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()){
+                        if ( (usuari =document.toObject(Usuari.class)).getEmail().equals(userEmail)){
+                            GlobarArgs.NOM_USUARI_ACTUAL = usuari.getNombre();
+                            notification.OnSuccess();
+                            break;
+                        }
+                    }
+                }
+                else
+                    notification.OnFailure();
+            }
+        });
+
         return false;
     }
 }

@@ -23,6 +23,10 @@
                 android:icon="@drawable/avatar"
                 android:title="Shared users" />
             <item
+                android:id="@+id/nav_Descuento"
+                android:icon="@android:drawable/ic_menu_today"
+                android:title="Descuento" />
+            <item
                 android:id="@+id/nav_shared_network"
                 android:icon="@android:drawable/ic_menu_share"
                 android:title="compartir" />

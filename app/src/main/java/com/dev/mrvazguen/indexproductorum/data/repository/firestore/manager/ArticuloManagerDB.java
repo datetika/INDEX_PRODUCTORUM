@@ -255,6 +255,7 @@ String collectionPath;
 
 
                     List<Articulo> list = new ArrayList<>();
+                    if(value!=null)
                     for (QueryDocumentSnapshot document : value) {
                         Log.d("Firestore_Result", document.getId() + " => " + document.getData());
                         Articulo articulo = document.toObject(Articulo.class);

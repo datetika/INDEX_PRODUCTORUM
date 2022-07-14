@@ -133,7 +133,6 @@ FragmentLoginBinding binding;
                                 managerDB.findUserByEmail(userMail);
                                 managerDB.close();
 
-
                                 GlobarArgs.USER_ID = FirebaseConection.getmAuth().getCurrentUser().getUid() ;
                                 GlobarArgs.CORREO_USUARIO = FirebaseConection.getUser().getEmail();
                                 Navigation.findNavController(v).navigate(

@@ -4,12 +4,15 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.UserManagerDB;
+import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentSharedUserBinding;
 
 /**
@@ -57,9 +60,28 @@ public class SharedUserFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 UserManagerDB userManagerDB = new UserManagerDB();
-                if(userManagerDB.existUserInTableUser(binding.tvSearchUserByEmail.getText().toString())){
+                String email =binding.tvSearchUserByEmail.getText().toString()==null?"": binding.tvSearchUserByEmail.getText().toString();
+
+                if(!email.isEmpty() & userManagerDB.existUserInTableUser(email,
+                        new iFirestoreNotification() {
+                            @Override
+                            public boolean OnSuccess() {
+                                Log.d("USER_TABLE","HEMOS encontrado al usuario");
+                                Toast.makeText(getActivity(),"Hemos encontrado al usuario : " + email,Toast.LENGTH_SHORT);
+                                return true;
+                            }
+
+                            @Override
+                            public void OnFailure() {
+                                Log.d("USER_TABLE","hemos tenido problemas para relizar la operacion");
+                            }
+                })){
                     //Add user in permision of shoping list
+
+
                 }
+                else
+                    Log.d("SHARED_USER_FRAGMENT","ha habido problemas para encontrar al usuario");
 
             }
         });
