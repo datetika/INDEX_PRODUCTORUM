@@ -96,7 +96,7 @@
         tools:layout="@layout/fragment_mostrar_articulo" />
     <fragment
         android:id="@+id/sharedUserFragment"
-        android:name="com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.SharedUserFragment"
+        android:name="com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.sharedUser.SharedUserFragment"
         android:label="fragment_shared_user"
         tools:layout="@layout/fragment_shared_user" />
 

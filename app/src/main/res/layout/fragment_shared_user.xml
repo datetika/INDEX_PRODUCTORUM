@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.fragment.articulo.SharedUserFragment">
+    tools:context=".ui.fragment.articulo.sharedUser.SharedUserFragment">
 
     <TextView
         android:id="@+id/textView7"
@@ -18,7 +18,7 @@
 
 
     <EditText
-        android:id="@+id/textView5"
+        android:id="@+id/tvSearchUserByEmail"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="80dp"
@@ -31,7 +31,7 @@
         android:paddingStart="10dp" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btnSearchUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

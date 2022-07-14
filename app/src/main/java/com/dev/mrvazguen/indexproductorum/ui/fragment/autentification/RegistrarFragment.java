@@ -3,11 +3,9 @@ package com.dev.mrvazguen.indexproductorum.ui.fragment.autentification;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.os.Parcel;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,27 +17,21 @@ import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
 import com.dev.mrvazguen.indexproductorum.data.repository.FirebaseConection;
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.UserManagerDB;
+import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentRegistrarBinding;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.OAuthCredential;
-import com.google.firebase.firestore.auth.User;
-
-import io.grpc.okhttp.internal.Util;
 
 public class RegistrarFragment extends Fragment {
 FragmentRegistrarBinding binding;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_CORREO = "Correo";
-
+    private UserManagerDB userManagerDB;
     Usuari user;
     private String mParam1;
     private String mParam2;
@@ -63,8 +55,6 @@ FragmentRegistrarBinding binding;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
     }
 
     @Override
@@ -76,6 +66,7 @@ FragmentRegistrarBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        userManagerDB = new UserManagerDB();
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_registrar, container, false);
         View v = inflater.inflate(R.layout.fragment_registrar, container, false);
@@ -92,6 +83,8 @@ FragmentRegistrarBinding binding;
 
                 if(isValidat(user)){
                     donarAlta(user, v);
+
+
                 }
                 else
                 {
@@ -114,11 +107,33 @@ FragmentRegistrarBinding binding;
 
     private  void donarAlta(Usuari user, View v) {
 
-        /*
+
+        Boolean hasRegisterUser=false;
         if(mAuth==null){
             Log.d("Firebase_Autentification","mAut null");
             mAuth = FirebaseConection.getmAuth();
         }
+
+        UserManagerDB userManagerDB = new UserManagerDB();
+        iFirestoreNotification iFirestoreNotification = new iFirestoreNotification () {
+
+            @Override
+            public boolean OnSuccess() {
+                GlobarArgs.USER_ID= FirebaseConection.getmAuth().getCurrentUser().getUid();
+                GlobarArgs.CORREO_USUARIO = user.getEmail();
+                GlobarArgs.NOM_USUARI_ACTUAL = user.getNombre();//Asignamos el nombre de usuario
+                Log.d("USER_MANAGER_FIRESTORE","hemos podido dar alta al usuario : "+ user.getNombre());
+                return true;
+            }
+
+            @Override
+            public void OnFailure() {
+                Toast.makeText(getActivity(),"",Toast.LENGTH_SHORT);
+                Log.d("USER_MANAGER_FIRESTORE","No hemos podido dar alta al usuario : ");
+            }
+        };
+        userManagerDB.addUserTable(user,iFirestoreNotification);
+
 
 
         mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPasword())
@@ -130,20 +145,17 @@ FragmentRegistrarBinding binding;
 
                             //TODO assign user id in global args
                             GlobarArgs.USER_ID= FirebaseConection.getmAuth().getCurrentUser().getUid();
-                            GlobarArgs.CORREO_USUARIO = FirebaseConection.getUser().getEmail();
-
-
-                            UserManagerDB userManagerDB = new UserManagerDB();
-                            String email =FirebaseConection.getmAuth().getCurrentUser().getEmail();
-                            userManagerDB.addUser(user);
+                            GlobarArgs.CORREO_USUARIO =user.getEmail();
+                            GlobarArgs.NOM_USUARI_ACTUAL = user.getNombre();
                             Log.d("USER_REGISTER",GlobarArgs.USER_ID);
-
 
                             Toast.makeText(getActivity(),"Sighn in with successful ",Toast.LENGTH_SHORT);
 
-                            Navigation.findNavController(v).navigate(
-                                    R.id.action_registrarFragment_to_listaArticuloFragment);
-
+                            if(iFirestoreNotification.OnSuccess())
+                                Navigation.findNavController(v).navigate(
+                                        R.id.action_registrarFragment_to_listaArticuloFragment);
+                            else
+                                Log.d("USER_REGISTER","No hemos podido crear la tabla de usuario");
 
                         } else {
 
@@ -158,8 +170,7 @@ FragmentRegistrarBinding binding;
                 });
 
 
-
-         */
+        /*
         FirebaseUser userFirebase = FirebaseAuth.getInstance().getCurrentUser();
         AuthCredential credential = EmailAuthProvider
                 .getCredential(user.getEmail(), user.getPasword());
@@ -175,7 +186,20 @@ FragmentRegistrarBinding binding;
 
                 UserManagerDB userManagerDB = new UserManagerDB();
                 String email =FirebaseConection.getmAuth().getCurrentUser().getEmail();
-                userManagerDB.addUser(user);
+                iFirestoreNotification iFirestoreNotification = new iFirestoreNotification () {
+
+                    @Override
+                    public void OnSuccess() {
+                        Log.d("USER_MANAGER_FIRESTORE","hemos podido dar alta al usuario : "+ user.getNombre());
+                    }
+
+                    @Override
+                    public void OnFailure() {
+                        Toast.makeText(getActivity(),"",Toast.LENGTH_SHORT);
+                        Log.d("USER_MANAGER_FIRESTORE","No hemos podido dar alta al usuario : ");
+                    }
+                };
+                userManagerDB.addUser(user,iFirestoreNotification);
                 Log.d("USER_REGISTER",GlobarArgs.USER_ID);
 
 
@@ -188,6 +212,8 @@ FragmentRegistrarBinding binding;
         });
 
 
+
+         */
 
     }
 

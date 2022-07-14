@@ -29,13 +29,15 @@
 
     <TextView
         android:id="@+id/tvNavigationNombre"
-        android:layout_width="match_parent"
+        android:layout_width="163dp"
         android:layout_height="wrap_content"
+        android:textColor="@color/BlueA200"
+        android:paddingStart="20dp"
         android:paddingTop="1dp"
         android:text="Usuario x"
-        android:textSize="20dp"
-        android:paddingStart="20dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="20dp" />
 
 
 </LinearLayout>

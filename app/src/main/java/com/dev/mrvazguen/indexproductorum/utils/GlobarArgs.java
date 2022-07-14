@@ -1,7 +1,5 @@
 package com.dev.mrvazguen.indexproductorum.utils;
 
-import java.net.PortUnreachableException;
-
 /*
 * @See  colecciones a nivel de raíz (Subcolecciones)<a href ="https://firebase.google.com/docs/firestore/manage-data/structure-data?hl=es-419">link</a>
 * */
@@ -19,9 +17,9 @@ public class GlobarArgs {
     public  static  final  String LISTA_COMPRA_ABSOLUT_PATH=DB_SHOPING+"/"+USER_ID+"/"+COLLECTION_SHOPING_LIST+"/"+DOCUMENT_ARTICLE;
 
     //DB USERS
-    public  static  final  String DB_USER="usuarios";
+    public  static  final  String DB_USER_COLLECTION ="usuariosCollection";
     public static String CORREO_USUARIO="random";
-    public  static  final String DB_USERS = DB_USER+"/"+ CORREO_USUARIO;
+    public  static  final String DB_USERS_LIST = DB_USER_COLLECTION +"/"+ CORREO_USUARIO;
     public static  String NOM_USUARI_ACTUAL="DEFAULT_USER";
     //DB OFERTA
     public  static final  String  DB_DEALS="deals";

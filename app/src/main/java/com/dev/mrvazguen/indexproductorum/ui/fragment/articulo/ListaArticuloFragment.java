@@ -42,6 +42,7 @@ import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.ArticuloManagerDB;
+import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.UserManagerDB;
 import com.dev.mrvazguen.indexproductorum.data.repository.iTaskNotification;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentAgregarArticuloBinding;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentLoginBinding;
@@ -51,6 +52,7 @@ import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.SharedUse
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -60,7 +62,8 @@ public class ListaArticuloFragment extends Fragment{
     ArrayList<Articulo>articulos;
     ArrayList<Usuari>usuaris;
     NavigationView navigationView;
-
+    View headerView;
+    TextView navUsername;
     private RecyclerView recyclerViewArticles;
     private RecyclerView recyclerViewSharedUser;
     private  ListaArticuloAdapter adapterArticles;
@@ -77,6 +80,15 @@ public class ListaArticuloFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
 
     }
 
@@ -104,6 +116,9 @@ public class ListaArticuloFragment extends Fragment{
                     articulos.add(new Articulo("EMPTY_FIELD"));
                 adapterArticles= new ListaArticuloAdapter(articulos);
                 recyclerViewArticles.setAdapter(adapterArticles);
+
+
+
             }
 
             @Override
@@ -123,7 +138,7 @@ public class ListaArticuloFragment extends Fragment{
         recyclerViewArticles.setHasFixedSize(true);
         recyclerViewArticles.setLayoutManager(new LinearLayoutManager(viewListaArticle.getContext()));
 
-        //TODO recylerview swipe to  delete item
+        //TODO recylerview shoping list swipe to  delete item
        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT| ItemTouchHelper.RIGHT) {
            @Override
            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -189,21 +204,23 @@ public class ListaArticuloFragment extends Fragment{
                         Navigation.findNavController(viewListaArticle).navigate(
                                 R.id.action_listaArticuloFragment_to_sharedUserFragment);
                         break;
+
+
                 }
                 return false;
             }
         });
 
-
-
-
-
+        //TODO  inicialize navigationView header and set Name of user
+        headerView = navigationView.getHeaderView(0);
+        navUsername = (TextView) headerView.findViewById(R.id.tvNavigationNombre);
+        navUsername.setText(GlobarArgs.NOM_USUARI_ACTUAL);
 
         return viewListaArticle;
     }
 
 
-    //TODO recylerview ELIMINAR
+
 
 
 
@@ -217,6 +234,9 @@ public class ListaArticuloFragment extends Fragment{
     @SuppressLint("RestrictedApi")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //UPDATE NAME OF USER
+        navUsername.setText(GlobarArgs.NOM_USUARI_ACTUAL);
+
         switch (item.getItemId()) {
             case R.id.mnu_barra_lateralOpen:
                 DrawerLayout drawerLayout=  ((DrawerLayout) (getActivity().findViewById(R.id.drawerLayutListaArticles)));

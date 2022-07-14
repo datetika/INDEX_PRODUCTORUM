@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.repository.FirebaseConection;
 
+import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.UserManagerDB;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentLoginBinding;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -125,14 +126,21 @@ FragmentLoginBinding binding;
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-
                                 FirebaseConection.settUser(FirebaseConection.getmAuth().getCurrentUser());
 
+                                //Find user by ID
+                                UserManagerDB managerDB= new UserManagerDB();
+                                managerDB.findUserByEmail(userMail);
+                                managerDB.close();
+
+
+                                GlobarArgs.USER_ID = FirebaseConection.getmAuth().getCurrentUser().getUid() ;
+                                GlobarArgs.CORREO_USUARIO = FirebaseConection.getUser().getEmail();
                                 Navigation.findNavController(v).navigate(
                                         R.id.action_loginFragment_to_listaArticuloFragment);
                                 //TODO assign user id in global args
-                                GlobarArgs.USER_ID = FirebaseConection.getmAuth().getCurrentUser().getUid() ;
-                                GlobarArgs.CORREO_USUARIO = FirebaseConection.getUser().getEmail();
+
+
 
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -166,6 +174,7 @@ FragmentLoginBinding binding;
 
         return  Pattern.compile(regexPattern).matcher(userMail).matches() && pasword.length()>3;
     }
+
 
 
 

@@ -2,7 +2,6 @@ package com.dev.mrvazguen.indexproductorum.ui.fragment.articulo;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -23,14 +22,6 @@ import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.Arti
 import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentAgregarArticuloBinding;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -110,11 +101,12 @@ public class AgregarArticuloFragment extends Fragment {
                 // interface to notificate  state of apend method
                 iFirestoreNotification iErrorMesgage= new iFirestoreNotification() {
                     @Override
-                    public void OnSuccess() {
+                    public boolean OnSuccess() {
                        // Log.e(TAG,"Agregado articulo con exito");
 
                         //Navega al fragment anterior
                         Navigation.findNavController(v).navigate(R.id.listaArticuloFragment);
+                        return true;
                     }
 
                     @Override

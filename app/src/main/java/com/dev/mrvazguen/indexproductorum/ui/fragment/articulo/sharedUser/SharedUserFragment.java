@@ -1,4 +1,4 @@
-package com.dev.mrvazguen.indexproductorum.ui.fragment.articulo;
+package com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.sharedUser;
 
 import android.os.Bundle;
 
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dev.mrvazguen.indexproductorum.R;
+import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.UserManagerDB;
+import com.dev.mrvazguen.indexproductorum.databinding.FragmentSharedUserBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,7 +19,7 @@ import com.dev.mrvazguen.indexproductorum.R;
  */
 public class SharedUserFragment extends Fragment {
 
-
+   FragmentSharedUserBinding binding ;
 
     public SharedUserFragment() {
         // Required empty public constructor
@@ -48,6 +50,21 @@ public class SharedUserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shared_user, container, false);
+       // return inflater.inflate(R.layout.fragment_shared_user, container, false);
+        binding = FragmentSharedUserBinding.inflate(inflater, container, false);
+
+        binding.btnSearchUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserManagerDB userManagerDB = new UserManagerDB();
+                if(userManagerDB.existUserInTableUser(binding.tvSearchUserByEmail.getText().toString())){
+                    //Add user in permision of shoping list
+                }
+
+            }
+        });
+
+        return binding.getRoot();//View
+
     }
 }
