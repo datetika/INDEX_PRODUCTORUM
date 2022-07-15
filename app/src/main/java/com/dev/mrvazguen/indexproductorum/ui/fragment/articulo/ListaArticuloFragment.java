@@ -1,28 +1,18 @@
 package com.dev.mrvazguen.indexproductorum.ui.fragment.articulo;
 
 import android.annotation.SuppressLint;
-import android.graphics.drawable.Drawable;
-import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.ActionMenuItemView;
-import androidx.appcompat.view.menu.ListMenuItemView;
 import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -31,34 +21,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
-import com.dev.mrvazguen.indexproductorum.data.model.SharedUser;
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.ArticuloManagerDB;
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.UserManagerDB;
 import com.dev.mrvazguen.indexproductorum.data.repository.iTaskNotification;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentListaArticulosBinding;
-import com.dev.mrvazguen.indexproductorum.databinding.FragmentLoginBinding;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.ListaArticuloAdapter;
 import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.SharedUserAdapter;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ListaArticuloFragment extends Fragment{
@@ -101,14 +79,14 @@ public class ListaArticuloFragment extends Fragment{
 
         ///region  //TODO Shared USER recylerview UserSHared
 
-        iTaskNotification<SharedUser> iTaskNotificationUsuar = new iTaskNotification<SharedUser>() {
+        iTaskNotification<Usuari> iTaskNotificationUsuar = new iTaskNotification<Usuari>() {
 
             @Override
-            public void OnSucces(List<SharedUser> lista) {
-                ArrayList<SharedUser>items = new ArrayList<>();
-                items =(ArrayList<SharedUser>) lista;
+            public void OnSucces(List<Usuari> lista) {
+                ArrayList<Usuari>items = new ArrayList<>();
+                items =(ArrayList<Usuari>) lista;
                 if(items.size()!=0)
-                    items.add(new SharedUser("Default"));
+                    items.add(new Usuari("Default"));
                 //Set date
             }
 
@@ -119,8 +97,8 @@ public class ListaArticuloFragment extends Fragment{
         };
         userManagerDB.readRealtimeListener(iTaskNotificationUsuar);
 
-        ArrayList<SharedUser>items = new ArrayList<>();
-        items.add(new SharedUser("Empty"));
+        ArrayList<Usuari>items = new ArrayList<>();
+        items.add(new Usuari("Empty"));
 
         binding.recViewSharedUser.setAdapter(new SharedUserAdapter(items));
         binding.recViewSharedUser.setHasFixedSize(true);
@@ -164,7 +142,7 @@ public class ListaArticuloFragment extends Fragment{
 
             @Override
             public void OnFail(String msg) {
-                articulos.add(new Articulo("EMPTY_FIELD"));
+                articulos.add(new Articulo("Empty_List"));
                 Log.d("ArticuloManagerDB",msg);
                 adapterArticles= new ListaArticuloAdapter(articulos);
                 binding.recyclerViewItemArticulos.setAdapter(adapterArticles);

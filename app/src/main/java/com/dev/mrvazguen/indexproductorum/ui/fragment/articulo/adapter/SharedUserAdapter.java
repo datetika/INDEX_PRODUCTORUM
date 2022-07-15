@@ -3,24 +3,20 @@ package com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.mrvazguen.indexproductorum.R;
-import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
-import com.dev.mrvazguen.indexproductorum.data.model.SharedUser;
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 
 public class SharedUserAdapter extends RecyclerView.Adapter<SharedUserAdapter.SharedUserViewHolder>{
-    private  ArrayList<SharedUser> usuaris;
+    private  ArrayList<Usuari> usuaris;
     private  int nItems=0;
-    public  SharedUserAdapter(ArrayList<SharedUser> usuaris){
+    public  SharedUserAdapter(ArrayList<Usuari> usuaris){
         this.usuaris =usuaris;
         nItems = usuaris.size();
     }

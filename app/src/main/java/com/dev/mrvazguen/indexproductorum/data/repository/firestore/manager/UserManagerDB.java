@@ -2,10 +2,8 @@ package com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager;
 
 import androidx.annotation.NonNull;
 
-import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
-import com.dev.mrvazguen.indexproductorum.data.model.SharedUser;
-import com.dev.mrvazguen.indexproductorum.data.model.User;
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
+import com.dev.mrvazguen.indexproductorum.data.repository.iFirebaseResult;
 import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
 import com.dev.mrvazguen.indexproductorum.data.repository.iTaskNotification;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
@@ -18,6 +16,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +25,7 @@ import java.util.Map;
 public class UserManagerDB   {
     private static  final  String DEFAULT_USER_NAME="default_user";
     iFirestoreNotification notification ;
+    public ArrayList<Usuari>sharedUserArrayList = new ArrayList<>();
     private  FirebaseFirestore db = FirebaseFirestore.getInstance();
     public  UserManagerDB(){}
     public  UserManagerDB( iFirestoreNotification notification ){
@@ -77,6 +77,14 @@ public class UserManagerDB   {
         });
     }
 
+    public  void  addSharedUserInUserTable(Usuari usuari){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String,Object>data = new HashMap<>();
+        data.put(usuari.getNombre(),data);
+        db.collection(GlobarArgs.DB_USER_COLLECTION).document(usuari.getEmail()).set(data, SetOptions.merge());
+    }
+
+
     //DB access permission
     public  void tablaPermisionAdd(String userEmail,String idUserActual){
 
@@ -86,7 +94,7 @@ public class UserManagerDB   {
      * Find user in table @GlobarArgs.DB_USER_COLLECTION and asing in @GlobarArgs.NOM_USUARI_ACTUAL
      * @param emailUsuariActual
      */
-    public  void findUserByEmail(String emailUsuariActual){
+    public  void findUserByEmailAsignInGlobalArgs(String emailUsuariActual){
         db= FirebaseFirestore.getInstance();
         CollectionReference colREF = db.collection(GlobarArgs.DB_USER_COLLECTION);
 
@@ -98,7 +106,8 @@ public class UserManagerDB   {
               if(task.isSuccessful()){
                   for (QueryDocumentSnapshot document : task.getResult()){
                       if ( (usuari =document.toObject(Usuari.class)).getEmail().equals(emailUsuariActual)){
-                          GlobarArgs.NOM_USUARI_ACTUAL = usuari.getNombre();
+                           sharedUserArrayList.add(usuari);
+
                           break;
                       }
                   }
@@ -106,13 +115,64 @@ public class UserManagerDB   {
             }
         });
     }
+           public void findUserByEmail(String email , iFirebaseResult notification){
+               StringBuilder result = new StringBuilder();
+               db= FirebaseFirestore.getInstance();
+               CollectionReference colREF = db.collection(GlobarArgs.DB_USER_COLLECTION);
+
+               colREF.whereEqualTo("email",email).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                   @Override
+                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                       Usuari usuari = new Usuari();
+                       if(task.isSuccessful()){
+
+                           boolean enoctrado =false;
+                           for (QueryDocumentSnapshot document : task.getResult()){
+                               if ( (usuari =document.toObject(Usuari.class)).getEmail().equals(email)){
+
+                                   notification.OnSuccess(usuari);
+                                   enoctrado=true;
+                                   break;
+                               }
+                           }
+                           if(!enoctrado);
+                             notification.OnFailure("Usuario no encontrado");
+                       }
+                   }
+               });
+            return ;
+           }
 
 
     public  void close(){
 
     }
 
-    public boolean existUserInTableUser(String userEmail,iFirestoreNotification notification ) {
+    public  void existUserInTable(String userEmail,iFirestoreNotification notification ) {
+        db= FirebaseFirestore.getInstance();
+        CollectionReference colREF = db.collection(GlobarArgs.DB_USER_COLLECTION);
+        colREF.whereEqualTo("email",userEmail).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                Usuari usuari = new Usuari();
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()){
+                        if ( (usuari =document.toObject(Usuari.class)).getEmail().equals(userEmail)){
+
+                            notification.OnSuccess();
+                            break;
+                        }
+                    }
+                }
+                else
+                    notification.OnFailure();
+            }
+        });
+
+        return;
+    }
+
+    public void asignCurrentUserName(String userEmail,iFirestoreNotification notification ) {
         db= FirebaseFirestore.getInstance();
         CollectionReference colREF = db.collection(GlobarArgs.DB_USER_COLLECTION);
         colREF.whereEqualTo("email",userEmail).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -133,12 +193,12 @@ public class UserManagerDB   {
             }
         });
 
-        return false;
+        return;
     }
 
-    public void readRealtimeListener(iTaskNotification<SharedUser> iTaskNotification) {
-        ArrayList<SharedUser> usuariArrayList = new ArrayList<>();
-        usuariArrayList.add(new SharedUser("Fulanito"));
+    public void readRealtimeListener(iTaskNotification<Usuari> iTaskNotification) {
+        ArrayList<Usuari> usuariArrayList = new ArrayList<>();
+        usuariArrayList.add(new Usuari("Fulanito"));
         iTaskNotification.OnSucces(usuariArrayList);
     }
 }

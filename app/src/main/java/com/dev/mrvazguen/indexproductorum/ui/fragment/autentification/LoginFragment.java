@@ -19,6 +19,7 @@ import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.repository.FirebaseConection;
 
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.UserManagerDB;
+import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
 import com.dev.mrvazguen.indexproductorum.databinding.FragmentLoginBinding;
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -135,11 +136,23 @@ FirebaseAuth mAut;
 
                                 //Find user by ID
                                 UserManagerDB managerDB= new UserManagerDB();
-                                managerDB.findUserByEmail(userMail);
+                                managerDB.findUserByEmailAsignInGlobalArgs(userMail);
                                 managerDB.close();
                                 //TODO assign user id in global args
                                 GlobarArgs.USER_ID = mAut.getCurrentUser().getUid() ;
                                 GlobarArgs.CORREO_USUARIO = mAut.getCurrentUser().getEmail();
+                                new UserManagerDB().asignCurrentUserName(GlobarArgs.CORREO_USUARIO, new iFirestoreNotification() {
+                                    @Override
+                                    public boolean OnSuccess() {
+
+                                        return true;
+                                    }
+
+                                    @Override
+                                    public void OnFailure() {
+
+                                    }
+                                });
                                 Navigation.findNavController(v).navigate(
                                         R.id.action_loginFragment_to_listaArticuloFragment);
 

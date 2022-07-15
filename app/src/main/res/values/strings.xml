@@ -12,6 +12,9 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="action_text">TestSnack barr</string>
+    <string name="ok_text">ok</string>
+    <string name="order_confirmation">Quieres agregar al usuario a tu lista</string>
+
 
 
     <string-array name="categoria_array">
