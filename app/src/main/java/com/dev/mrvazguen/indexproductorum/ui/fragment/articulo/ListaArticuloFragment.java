@@ -6,6 +6,7 @@ import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.appcompat.view.menu.ListMenuItemView;
@@ -66,7 +67,7 @@ public class ListaArticuloFragment extends Fragment{
     private NavigationView navigationView;
     private View headerView;
     private TextView navUsername;
-
+    private RecyclerView recyclerViewSharedUser;
     private  ListaArticuloAdapter adapterArticles;
     private SharedUserAdapter adapterSharedUser;
     public com.dev.mrvazguen.indexproductorum.data.repository.iTaskNotification<Articulo> iTaskNotification;
@@ -76,6 +77,7 @@ public class ListaArticuloFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
 
     }
 
@@ -107,8 +109,7 @@ public class ListaArticuloFragment extends Fragment{
                 items =(ArrayList<SharedUser>) lista;
                 if(items.size()!=0)
                     items.add(new SharedUser("Default"));
-
-                binding.recViewSharedUser.setAdapter(new SharedUserAdapter(items));//Set date
+                //Set date
             }
 
             @Override
@@ -118,13 +119,35 @@ public class ListaArticuloFragment extends Fragment{
         };
         userManagerDB.readRealtimeListener(iTaskNotificationUsuar);
 
+        ArrayList<SharedUser>items = new ArrayList<>();
+        items.add(new SharedUser("Empty"));
+
+        binding.recViewSharedUser.setAdapter(new SharedUserAdapter(items));
+        binding.recViewSharedUser.setHasFixedSize(true);
+        binding.recViewSharedUser.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
+
+
+
+
 
         //TODO add pager behavior (Recylerview UserSHared item  page indicator)
         //PagerSnapHelper snapHelper = new PagerSnapHelper();
         //snapHelper.attachToRecyclerView(recyclerViewSharedUser);
         ///endregion
+/*
+        ArrayList<SharedUser>sharedUsers = new ArrayList<>();
+        sharedUsers.add(new SharedUser("Default"));
 
+        View viewListaArticle = inflater.inflate(R.layout.fragment_lista_articulos, container, false);
+        LinearLayoutManager   linearLayoutManagerUser = new LinearLayoutManager(viewListaArticle.getContext(), LinearLayoutManager.HORIZONTAL, false);
 
+        recyclerViewSharedUser = viewListaArticle.findViewById(R.id.recViewSharedUser);
+        recyclerViewSharedUser.setHasFixedSize(true);
+        recyclerViewSharedUser.setLayoutManager(linearLayoutManagerUser);
+        adapterSharedUser= new SharedUserAdapter(sharedUsers);//Set date
+        recyclerViewSharedUser.setAdapter(adapterSharedUser);
+
+ */
         ///region //TODO RECYLERVIEW lista Articulos
 
 
@@ -152,10 +175,7 @@ public class ListaArticuloFragment extends Fragment{
         Log.e("ListaArticulosFragment","Array lista articulos size: " + articulos.size());
 
 
-        //ADD date to recylerview Shared user
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getActivity(),LinearLayoutManager.HORIZONTAL,false);
-        binding.recViewSharedUser.setHasFixedSize(true);
-        binding.recViewSharedUser.setLayoutManager(layoutManager);
+
 
         //  Add recylerview Items shoping list
         binding.recyclerViewItemArticulos.setHasFixedSize(true);

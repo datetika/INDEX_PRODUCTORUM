@@ -24,6 +24,7 @@ public class SharedUserAdapter extends RecyclerView.Adapter<SharedUserAdapter.Sh
         this.usuaris =usuaris;
         nItems = usuaris.size();
     }
+
     @NonNull
     @Override
     public SharedUserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,16 +33,11 @@ public class SharedUserAdapter extends RecyclerView.Adapter<SharedUserAdapter.Sh
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SharedUserViewHolder holder, int position) {
-        if(nItems>0){
-          holder.getTextViewUserName().setText(usuaris.get(position).getNombre());
-          holder.getTextViewUserPageIndicator().setText(String.valueOf(position+1)+"/"+String.valueOf(nItems));
-        }
-        else{
-            holder.getTextViewUserName().setText("Empty");
-            holder.getTextViewUserPageIndicator().setText(String.valueOf(1)+"/"+String.valueOf(1));
-        }
+    public void onBindViewHolder(@NonNull SharedUserViewHolder holder, int itemPosition) {
+          holder.getTextViewUserName().setText(usuaris.get(itemPosition).getNombre());
+          holder.getTextViewUserPageIndicator().setText(String.valueOf(itemPosition+1)+"/"+String.valueOf(nItems));
     }
+
 
     @Override
     public int getItemCount() {
@@ -56,6 +52,7 @@ public class SharedUserAdapter extends RecyclerView.Adapter<SharedUserAdapter.Sh
             tvUserName = itemView.findViewById(R.id.tvNombreUsuari);
             tvPageIndicator = itemView.findViewById(R.id.tvUSERPageIndicator);
         }
+
         public TextView getTextViewUserName(){return tvUserName;}
         public TextView getTextViewUserPageIndicator(){return tvPageIndicator;}
     };
