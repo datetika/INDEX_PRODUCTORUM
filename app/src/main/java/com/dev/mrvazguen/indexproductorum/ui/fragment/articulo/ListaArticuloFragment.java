@@ -36,6 +36,7 @@ import com.dev.mrvazguen.indexproductorum.ui.fragment.articulo.adapter.SharedUse
 import com.dev.mrvazguen.indexproductorum.utils.GlobarArgs;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,58 +72,34 @@ public class ListaArticuloFragment extends Fragment{
 
         //inicializacion de variables usuaris, articulos
         articulos = new ArrayList<>();
-
+        ArrayList<SharedUser>sharedUsers = new ArrayList<>();
         ArticuloManagerDB articuloManagerDB = new ArticuloManagerDB("Test/prueba");
         UserManagerDB userManagerDB = new UserManagerDB();
 
 
         ///region  //TODO Shared USER recylerview UserSHared
-        ArrayList<SharedUser>itemsSharedUser = new ArrayList<>();
-        itemsSharedUser.add(new SharedUser("TEST"));
-
-        iTaskNotification<SharedUser> iTaskNotificationUsuar = new iTaskNotification<SharedUser>() {
-
-            @Override
-            public void OnSucces(List<SharedUser> lista) {
-
-                adapterSharedUser= new SharedUserAdapter((ArrayList<SharedUser>) lista);
-                binding.recyclerViewItemArticulos.setAdapter(adapterSharedUser);
-                //Set date
-            }
-
-            @Override
-            public void OnFail(String msg) {
-                binding.recViewItemSharedUser.setAdapter(new SharedUserAdapter(itemsSharedUser));
-            }
-        };
-        userManagerDB.readRealtimeListener(iTaskNotificationUsuar);
 
 
         //TODO add pager behavior (Recylerview UserSHared item  page indicator)
         //PagerSnapHelper snapHelper = new PagerSnapHelper();
         //snapHelper.attachToRecyclerView(recyclerViewSharedUser);
 
-        binding.recViewItemSharedUser.setHasFixedSize(true);
-        binding.recViewItemSharedUser.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
-/*
-        ArrayList<SharedUser>sharedUsers = new ArrayList<>();
-        sharedUsers.add(new SharedUser("Default"));
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(binding.getRoot().getContext());
+        binding.recViewItemSharedUser.setLayoutManager(layoutManager);
 
-        View viewListaArticle = inflater.inflate(R.layout.fragment_lista_articulos, container, false);
-        LinearLayoutManager   linearLayoutManagerUser = new LinearLayoutManager(viewListaArticle.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        ArrayList<SharedUser> items =  new ArrayList<>();
+        items.add(new SharedUser("Default"));
+        binding.recViewItemSharedUser.setAdapter(new SharedUserAdapter(items));
 
-        recyclerViewSharedUser = viewListaArticle.findViewById(R.id.recViewSharedUser);
-        recyclerViewSharedUser.setHasFixedSize(true);
-        recyclerViewSharedUser.setLayoutManager(linearLayoutManagerUser);
-        adapterSharedUser= new SharedUserAdapter(sharedUsers);//Set date
-        recyclerViewSharedUser.setAdapter(adapterSharedUser);
 
- */
         ///endregion
         ///region //TODO RECYLERVIEW lista Articulos
 
 
         //Cargar los datos de FirestoreArticulo
+        View viewListaArticle = inflater.inflate(R.layout.fragment_lista_articulos, container, false);
+        LinearLayoutManager   linearLayoutManagerUser = new LinearLayoutManager(viewListaArticle.getContext(), LinearLayoutManager.HORIZONTAL, false);
+
         iTaskNotification = new iTaskNotification<Articulo>(){
             @Override
             public void OnSucces(List<Articulo> lista) {
