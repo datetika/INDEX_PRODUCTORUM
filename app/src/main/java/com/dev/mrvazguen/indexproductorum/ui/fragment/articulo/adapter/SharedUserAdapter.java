@@ -9,14 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev.mrvazguen.indexproductorum.R;
+import com.dev.mrvazguen.indexproductorum.data.model.SharedUser;
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
 
 import java.util.ArrayList;
 
-public class SharedUserAdapter extends RecyclerView.Adapter<SharedUserAdapter.SharedUserViewHolder>{
-    private  ArrayList<Usuari> usuaris;
+public class SharedUserAdapter extends  RecyclerView.Adapter<SharedUserAdapter.SharedUserViewHolder> {
+    private  ArrayList<SharedUser> usuaris ;
     private  int nItems=0;
-    public  SharedUserAdapter(ArrayList<Usuari> usuaris){
+    public  SharedUserAdapter(ArrayList<SharedUser> usuaris){
         this.usuaris =usuaris;
         nItems = usuaris.size();
     }
@@ -41,14 +42,13 @@ public class SharedUserAdapter extends RecyclerView.Adapter<SharedUserAdapter.Sh
     }
 
     public  class SharedUserViewHolder extends  RecyclerView.ViewHolder {
-         TextView tvUserName;
-         TextView tvPageIndicator ;
+        TextView tvUserName;
+        TextView tvPageIndicator ;
         public SharedUserViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUserName = itemView.findViewById(R.id.tvNombreUsuari);
             tvPageIndicator = itemView.findViewById(R.id.tvUSERPageIndicator);
         }
-
         public TextView getTextViewUserName(){return tvUserName;}
         public TextView getTextViewUserPageIndicator(){return tvPageIndicator;}
     };

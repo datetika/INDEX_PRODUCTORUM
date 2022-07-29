@@ -2,6 +2,7 @@ package com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager;
 
 import androidx.annotation.NonNull;
 
+import com.dev.mrvazguen.indexproductorum.data.model.SharedUser;
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
 import com.dev.mrvazguen.indexproductorum.data.repository.iFirebaseResult;
 import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
@@ -77,11 +78,11 @@ public class UserManagerDB   {
         });
     }
 
-    public  void  addSharedUserInUserTable(Usuari usuari){
+    public  void  addSharedUserInUserTable(Usuari usuariActual, Usuari sharedUser){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String,Object>data = new HashMap<>();
-        data.put(usuari.getNombre(),data);
-        db.collection(GlobarArgs.DB_USER_COLLECTION).document(usuari.getEmail()).set(data, SetOptions.merge());
+        data.put(sharedUser.getNombre(),data);
+        //db.collection(GlobarArgs.DB_USER_COLLECTION).document(usuariActual.getEmail()).set(data, SetOptions.merge());
     }
 
 
@@ -196,9 +197,9 @@ public class UserManagerDB   {
         return;
     }
 
-    public void readRealtimeListener(iTaskNotification<Usuari> iTaskNotification) {
-        ArrayList<Usuari> usuariArrayList = new ArrayList<>();
-        usuariArrayList.add(new Usuari("Fulanito"));
+    public void readRealtimeListener(iTaskNotification<SharedUser> iTaskNotification) {
+        ArrayList<SharedUser> usuariArrayList = new ArrayList<>();
+        usuariArrayList.add(new SharedUser("Fulanito"));
         iTaskNotification.OnSucces(usuariArrayList);
     }
 }

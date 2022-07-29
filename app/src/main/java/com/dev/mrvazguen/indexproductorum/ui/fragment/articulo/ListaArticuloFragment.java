@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
+import com.dev.mrvazguen.indexproductorum.data.model.SharedUser;
 import com.dev.mrvazguen.indexproductorum.data.model.Usuari;
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.ArticuloManagerDB;
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.UserManagerDB;
@@ -41,7 +42,6 @@ import java.util.List;
 
 public class ListaArticuloFragment extends Fragment{
     private ArrayList<Articulo>articulos;
-    private ArrayList<Usuari>usuaris;
     private NavigationView navigationView;
     private View headerView;
     private TextView navUsername;
@@ -70,7 +70,6 @@ public class ListaArticuloFragment extends Fragment{
         binding = FragmentListaArticulosBinding.bind(v);
 
         //inicializacion de variables usuaris, articulos
-        usuaris = new ArrayList<>();
         articulos = new ArrayList<>();
 
         ArticuloManagerDB articuloManagerDB = new ArticuloManagerDB("Test/prueba");
@@ -78,40 +77,33 @@ public class ListaArticuloFragment extends Fragment{
 
 
         ///region  //TODO Shared USER recylerview UserSHared
+        ArrayList<SharedUser>itemsSharedUser = new ArrayList<>();
+        itemsSharedUser.add(new SharedUser("TEST"));
 
-        iTaskNotification<Usuari> iTaskNotificationUsuar = new iTaskNotification<Usuari>() {
+        iTaskNotification<SharedUser> iTaskNotificationUsuar = new iTaskNotification<SharedUser>() {
 
             @Override
-            public void OnSucces(List<Usuari> lista) {
-                ArrayList<Usuari>items = new ArrayList<>();
-                items =(ArrayList<Usuari>) lista;
-                if(items.size()!=0)
-                    items.add(new Usuari("Default"));
+            public void OnSucces(List<SharedUser> lista) {
+
+                adapterSharedUser= new SharedUserAdapter((ArrayList<SharedUser>) lista);
+                binding.recyclerViewItemArticulos.setAdapter(adapterSharedUser);
                 //Set date
             }
 
             @Override
             public void OnFail(String msg) {
-
+                binding.recViewItemSharedUser.setAdapter(new SharedUserAdapter(itemsSharedUser));
             }
         };
         userManagerDB.readRealtimeListener(iTaskNotificationUsuar);
-
-        ArrayList<Usuari>items = new ArrayList<>();
-        items.add(new Usuari("Empty"));
-
-        binding.recViewSharedUser.setAdapter(new SharedUserAdapter(items));
-        binding.recViewSharedUser.setHasFixedSize(true);
-        binding.recViewSharedUser.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
-
-
-
 
 
         //TODO add pager behavior (Recylerview UserSHared item  page indicator)
         //PagerSnapHelper snapHelper = new PagerSnapHelper();
         //snapHelper.attachToRecyclerView(recyclerViewSharedUser);
-        ///endregion
+
+        binding.recViewItemSharedUser.setHasFixedSize(true);
+        binding.recViewItemSharedUser.setLayoutManager(new LinearLayoutManager(binding.getRoot().getContext()));
 /*
         ArrayList<SharedUser>sharedUsers = new ArrayList<>();
         sharedUsers.add(new SharedUser("Default"));
@@ -126,6 +118,7 @@ public class ListaArticuloFragment extends Fragment{
         recyclerViewSharedUser.setAdapter(adapterSharedUser);
 
  */
+        ///endregion
         ///region //TODO RECYLERVIEW lista Articulos
 
 
@@ -142,7 +135,7 @@ public class ListaArticuloFragment extends Fragment{
 
             @Override
             public void OnFail(String msg) {
-                articulos.add(new Articulo("Empty_List"));
+                articulos.add(new Articulo(msg));
                 Log.d("ArticuloManagerDB",msg);
                 adapterArticles= new ListaArticuloAdapter(articulos);
                 binding.recyclerViewItemArticulos.setAdapter(adapterArticles);

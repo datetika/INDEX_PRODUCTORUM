@@ -90,15 +90,16 @@ public class SharedUserFragment extends Fragment {
 
                          @Override
                          public void OnSuccess(Object usuari) {
-                             Usuari usuariAux = (Usuari) usuari;
-                             if(list.contains(usuariAux.getNombre()))
+                             Usuari sharedUser = (Usuari) usuari;
+                             if(list.contains(sharedUser.getNombre()))
                                  Toast.makeText(getActivity(), "Usuari   existe en la lista", Toast.LENGTH_SHORT);
-                             else if( usuariAux.getNombre().compareTo(GlobarArgs.NOM_USUARI_ACTUAL)==0){
+                             else if( sharedUser.getNombre().compareTo(GlobarArgs.NOM_USUARI_ACTUAL)==0){
                                  Toast.makeText(getActivity(), "Usuario selecionado es el usuario actual", Toast.LENGTH_SHORT);
                              }
                              else{
-                                 list.add(usuariAux.getNombre());
+                                 list.add(sharedUser.getNombre());
                                  //TODO agregar documento de permiso en db_USERS/userID
+                                 userManagerDB.addSharedUserInUserTable(new Usuari(GlobarArgs.NOM_USUARI_ACTUAL,GlobarArgs.CORREO_USUARIO),sharedUser);
                              }
                          }
 

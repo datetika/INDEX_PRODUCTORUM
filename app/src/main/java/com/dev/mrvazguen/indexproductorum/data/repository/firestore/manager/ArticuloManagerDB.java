@@ -265,7 +265,7 @@ String collectionPath;
                     if(list.size()>0)
                       notificationEstat.OnSucces(list);
                     else
-                        notificationEstat.OnFail("No hemos podido leer datos (Firestore Realtime) !!!");
+                        notificationEstat.OnFail("EMPTY_LIST");
                 }
             });
     }

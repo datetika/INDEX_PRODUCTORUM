@@ -33,6 +33,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recViewItemSharedUser"
+            android:layout_width="284dp"
+            android:layout_height="80dp"
+            android:background="@color/AliceBlue"
+            android:nestedScrollingEnabled="false"
+            tools:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewItemArticulos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.181"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewItemArticulos"
             android:layout_width="match_parent"
             android:layout_height="472dp"
@@ -44,20 +59,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recViewSharedUser"
-            android:layout_width="284dp"
-            android:layout_height="80dp"
-            android:background="@color/AliceBlue"
-            android:nestedScrollingEnabled="false"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewItemArticulos"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.181"
-            tools:visibility="visible" />
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButtonAdd"
@@ -88,7 +90,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.608"
-            app:layout_constraintStart_toStartOf="@+id/recViewSharedUser"
+            app:layout_constraintStart_toStartOf="@+id/recViewItemSharedUser"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.191" />
 

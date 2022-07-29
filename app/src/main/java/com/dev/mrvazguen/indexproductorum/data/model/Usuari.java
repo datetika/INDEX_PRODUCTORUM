@@ -9,16 +9,15 @@ import java.util.ArrayList;
 
 public class Usuari {
     String nombre;
+    @Exclude
     String email;
+    @Exclude
     String pasword;
-    ArrayList<String>sharedUserList;
 
-    public Usuari(){
-        sharedUserList= new ArrayList<>();
-    }
+    public Usuari(){}
+
     public Usuari(String nombre){
         this();
-        sharedUserList= new ArrayList<>();
     }
 
     public  Usuari(String email,String nombre){
@@ -49,10 +48,11 @@ public class Usuari {
         this.email = email;
     }
 
+    @Exclude
     public String getPasword() {
         return pasword;
     }
-
+    @Exclude
     public void setPasword(String pasword) {
         this.pasword = pasword;
     }

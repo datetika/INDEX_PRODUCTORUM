@@ -12,7 +12,6 @@ import android.view.View;
 
 import com.dev.mrvazguen.indexproductorum.R;
 import com.dev.mrvazguen.indexproductorum.data.model.Articulo;
-import com.dev.mrvazguen.indexproductorum.data.model.User;
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.ArticuloManagerDB;
 import com.dev.mrvazguen.indexproductorum.data.repository.firestore.manager.UserManagerDB;
 import com.dev.mrvazguen.indexproductorum.data.repository.iFirestoreNotification;
