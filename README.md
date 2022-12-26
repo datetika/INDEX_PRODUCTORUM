@@ -137,6 +137,7 @@ INDEX PRODUCTORUM
 
 ![api_smprices](https://user-images.githubusercontent.com/20829751/179084594-6668d4ac-3636-468a-b927-50e7621d7015.png)
 
+
 ### Extras
 ([Drive link ](https://docs.google.com/document/d/1r5ElcFDWT98yS-NT08viIMSQooUFfycH5JtQUsLnOFA/edit))
 <br />
