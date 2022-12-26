@@ -19,8 +19,7 @@ INDEX PRODUCTORUM
 ### TAREAS A HACER
 - [X] CREAR UI
 - [X] CREAR UML
-- [X] CODIFICAR
-- [ ] TESTEAR
+- [X] CODIFICAR 
 
 ### Colaboradores
 
