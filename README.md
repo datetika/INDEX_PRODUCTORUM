@@ -6,7 +6,7 @@ INDEX PRODUCTORUM
 
 ## DESCRIPCION:
 
->Aplicacion para hacer la lista de compra. Permite listar de productos que se iran guardando en base de datos locales y remotas. Permite controlar los gastos y agregar promociones.
+>Aplicacion para hacer la lista de compra. Permite listar de productos que se iran guardando en base de datos  remota Firebase. 
 
 ### Características
 
