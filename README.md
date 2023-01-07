@@ -25,7 +25,7 @@ INDEX PRODUCTORUM
 
 | Miembros del equipo|       GITHUB        |  
 | -------------      |:-------------:      | 
-| Vazguen            | MrtVazguen          |
+| Vazguen            | https://github.com/MrtVazguen       |
 | Andrés             | Fahrek              |
 
 ### Herramientas utilizadas
