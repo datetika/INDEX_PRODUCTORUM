@@ -6,7 +6,10 @@
 
 ## DESCRIPCION:
 
->Aplicacion para hacer la lista de compra. Permite listar de productos que se iran guardando en base de datos  remota Firebase. 
+
+~~~
+Aplicacion para hacer la lista de compra. Permite listar de productos que se iran guardando en base de datos  remota Firebase. 
+~~~
 
 ### Características
 
